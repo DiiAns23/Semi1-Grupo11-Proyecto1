@@ -1,29 +1,30 @@
-CREATE DATABASE Proyecto1;
-
+DROP DATABASE IF EXISTS Proyecto1;
+CREATE DATABASE IF NOT EXISTS Proyecto1;
 USE Proyecto1;
 
 CREATE TABLE IF NOT EXISTS USUARIO(
-    id_usuario INT IDENTITY(1,1) PRIMARY KEY,
+    id_usuario INT AUTO_INCREMENT PRIMARY KEY,
+    email VARCHAR(50) NOT NULL,
     username VARCHAR(50) NOT NULL,
     password VARCHAR(50) NOT NULL,
-    photo VARCHAR(50) NOT NULL,
-    PRIMARY KEY (id_usuario)
+    photo VARCHAR(50) NOT NULL
 );
 
+DROP TABLE IF EXISTS PUBLICATION;	
 CREATE TABLE IF NOT EXISTS PUBLICATION(
-    id_publication INT IDENTITY(1,1) PRIMARY KEY,
+    id_publication INT AUTO_INCREMENT PRIMARY KEY,
     id_usuario INT NOT NULL,
-    archivo VARCHAR(50) NOT NULL,
+    nombre VARCHAR(255) NOT NULL,
+    archivo VARCHAR(255) NOT NULL,
     visibilidad BOOLEAN NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario),
-    PRIMARY KEY (id_publication)
+    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario)
 );
 
+DROP TABLE IF EXISTS FRIEND;
 CREATE TABLE IF NOT EXISTS FRIEND(
-    id_usuario INT NOT NULL,
-    id_friend INT NOT NULL,
+    id_usuario_f INT NOT NULL,
+    id_friend_f INT NOT NULL,
     acepted BOOLEAN NOT NULL,
-    FOREIGN KEY (id_usuario) REFERENCES USUARIO(id_usuario),
-    FOREIGN KEY (id_friend) REFERENCES USUARIO(id_usuario)
+    FOREIGN KEY (id_usuario_f) REFERENCES USUARIO(id_usuario),
+    FOREIGN KEY (id_friend_f) REFERENCES USUARIO(id_usuario)
 );
-

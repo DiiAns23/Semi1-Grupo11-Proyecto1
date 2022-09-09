@@ -12,7 +12,7 @@ router.get('/', (req, res) => {
 // LOGIN
 // usuario o correo y contrasenia
 router.post('/login', [
-    check('email', 'El usuario o correo es obligatorio').not().isEmpty(),
+    check('name', 'El usuario o correo es obligatorio').not().isEmpty(),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     validateAtributes
     ],
@@ -31,6 +31,16 @@ router.post('/register', [
     student.register
 );
 
+router.post('/addFriend', [
+    check('id_usuario_f', 'El id es obligatorio').isInt(),
+    check('id_friend_f', 'El id del amigo es obligatorio').isInt(),
+    validateAtributes
+    ], student.addFriend);
 
 
+router.post('/aceptFriend', [
+    check('id_usuario', 'El id es obligatorio').isInt(),
+    check('id_friend', 'El id del amigo es obligatorio').isInt(),
+    validateAtributes
+    ], student.aceptFriend);    
 module.exports = router;
