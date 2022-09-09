@@ -36,11 +36,27 @@ Contrasenia
 */
 
 router.post('/upload',[
+    check('id_usuario', 'El id del usuario es obligatorio').not().isEmpty(),
+    check('name', 'El nombre del archivo es obligatorio').not().isEmpty(),
     check('file', 'El archivo es obligatorio').not().isEmpty(),
     check('visibility', 'La visibilidad es obligatoria').not().isEmpty(),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     validateAtributes,
 ], home.uploadFile);
+
+// ELIMINAR ARCHIVO
+/*
+    Seleccionar archivo
+    Contraseña
+*/
+
+router.post('/delete',[
+    check('id_usuario', 'El archivo es obligatorio').not().isEmpty(),
+    check('name', 'El archivo es obligatorio').not().isEmpty(),
+    check('password', 'La contraseña es obligatoria').not().isEmpty(),
+    validateAtributes,
+], home.deleteFile);
+
 
 // EDITAR ARCHIVO
 /*
@@ -50,25 +66,20 @@ router.post('/upload',[
 */
 
 router.post('/edit',[
-    check('file', 'El archivo es obligatorio').not().isEmpty(),
+    check('name', 'El nombre es obligatorio').not().isEmpty(),
+    check('new_name', 'El nuevo nombre es obligatorio').not().isEmpty(),
     check('visibility', 'La visibilidad es obligatoria').not().isEmpty(),
     check('password', 'La contraseña es obligatoria').not().isEmpty(),
     validateAtributes,
 ], home.editFile);
 
-// ELIMINAR ARCHIVO
-/*
-    Seleccionar archivo
-    Contraseña
-*/
 
-router.post('/delete',[
-    check('file', 'El archivo es obligatorio').not().isEmpty(),
-    check('password', 'La contraseña es obligatoria').not().isEmpty(),
+// VER PUBLICACIONES DE AMIGOS
+
+router.post('/getPublications',[
+    check('id_usuario', 'El id del usuario es obligatorio').not().isEmpty(),
     validateAtributes,
-], home.deleteFile);
-
-// AGREGAR AMIGO
+], home.getPublications);
 
 
 module.exports = router;

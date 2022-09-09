@@ -9,7 +9,6 @@ const execute = async function consultar(query) {
     }
 };
 
-
 const execute_sp = async function execute_sp(proc_name, params) {
     try {
         const formated_params = Object.values(params).join(`', '`)
@@ -23,6 +22,7 @@ const execute_sp = async function execute_sp(proc_name, params) {
 
 
 module.exports = {
-    execute,
-    execute_sp
+  execute,
+  execute_sp
 }
+
