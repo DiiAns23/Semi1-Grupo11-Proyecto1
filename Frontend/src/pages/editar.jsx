@@ -135,12 +135,23 @@ export default function EditarArchivo() {
         getResponse()
             .then(response => {
                 console.log(response)
-                Swal.fire(
-                    `Archivo Editado con Exito!`,
-                    `Archivo Editado ${nombre}!`,
-                    `success`
-                )
-                navigateTo("/dashboard")
+                let validar = response.id
+                if(validar!==-1){
+                    Swal.fire(
+                        `Archivo Editado con Exito!`,
+                        `Archivo Editado ${nombre}!`,
+                        `success`
+                    )
+                    navigateTo("/dashboard")
+                }else{
+                    Swal.fire(
+                        `Edicion de Archivo Inconrrecto!`,
+                        `Intenta de nuevo!`,
+                        // ``,
+                        `error`
+                    )
+                }
+                
             })
             .catch((error) => {
                 console.log(error)
