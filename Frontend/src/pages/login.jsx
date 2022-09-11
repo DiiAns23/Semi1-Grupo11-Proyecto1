@@ -34,16 +34,27 @@ export default function LoginUsuario() {
         }
         getResponse()
             .then(response => {
-                console.log(response[0].id)
-                Cookies.set("id_usuario",1);
-                Cookies.set("username",data.name);
-                // setAuth({ data })
-                Swal.fire(
-                    `Autenticacion Correcta!`,
-                    `Bienvenido ${data.name}!`,
-                    `success`
-                )
-                navigateTo("/dashboard")
+                console.log(response.id)
+                let validar = response.id
+                if(validar!==-1){
+                    Cookies.set("id_usuario",1);
+                    Cookies.set("username",data.name);
+                    // setAuth({ data })
+                    Swal.fire(
+                        `Autenticacion Correcta!`,
+                        `Bienvenido ${data.name}!`,
+                        `success`
+                    )
+                    navigateTo("/dashboard")
+                }else{
+                    Swal.fire(
+                        `Inicio de Sesion Incorrecto!`,
+                        `${error}!`,
+                        // ``,
+                        `error`
+                    )
+                }
+                
             })
             .catch((error) => {
                 console.log(error)
