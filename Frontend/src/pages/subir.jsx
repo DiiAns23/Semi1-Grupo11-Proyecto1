@@ -1,5 +1,7 @@
 import * as React from 'react';
 import Box from '@mui/material/Box';
+import { useEffect, useState } from 'react';
+import { useNavigate } from "react-router-dom"
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
@@ -14,10 +16,66 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import PasswordIcon from '@mui/icons-material/Password';
+import Cookies from "js-cookie";
+import Swal from 'sweetalert2'
 
 export default function SubirArchivo() {
+    let navigateTo = useNavigate()
+    const [selectedFile, setSelectedFile] = useState();
+    const [isFilePicked, setIsFilePicked] = useState(false);
+
+    const [nombre, setNombre]=useState("")
+    const [visibilidad, setVisibilidad]=useState("")
+    const [pwd, setPwd]=useState("")
+
+    const changeHandler = (event) => {
+        setSelectedFile(event.target.files[0]);
+        setIsFilePicked(true);
+        const files = event.target.files;
+        const file = files[0];
+    };
+
+
+    async function cargar(){
+        const getResponse = async () => {
+            let id = Cookies.get("id_usuario")
+            const datos = {
+                id_usuario: id,
+                name: nombre,
+                file: "Archivo",
+                visbility: visibilidad,
+                password: pwd
+            }
+            const response = await myFetchData.request("home/upload", "POST", datos)
+            return response
+        }
+        getResponse()
+            .then(response => {
+                console.log(response)
+                Swal.fire(
+                    `Archivo Cargado con Exito!`,
+                    `Archivo Cargado ${nombre}!`,
+                    `success`
+                )
+                navigateTo("/dashboard")
+            })
+            .catch((error) => {
+                console.log(error)
+                Swal.fire(
+                    `Carga de Archivo Inconrrecto!`,
+                    `${error}!`,
+                    // ``,
+                    `error`
+                )
+            })
+    }
+
+    function cancelar() {
+        navigateTo("/dashboard")
+    }
+
     return (
-        <Card sx={{ maxWidth: 350, maxHeight: 950, marginX: 90, marginY: 10 }}>
+        <Card sx={{ minWidth: 350, minHeight: 450, marginX: 90, marginY: 10 }}>
             <CardContent>
                 <Typography variant="h5" component="div" align='center'>
                     Subir Archivo
@@ -28,24 +86,27 @@ export default function SubirArchivo() {
                     Cargar archivo:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <IconButton color="primary" aria-label="upload picture" component="label">
-                        <input hidden accept="image/*" type="file" />
-                        <FileUploadIcon />
-                    </IconButton>
+                <input type="file" name="file" onChange={changeHandler} />
+                    {isFilePicked ? (
+                        <div>
+                            <p>Nombre Archivo: {selectedFile.name}</p>
+                            <p>Tipo Archivo: {selectedFile.type}</p>
+                            <p>Tamano en bytes: {selectedFile.size}</p>
+                            <p>
+                                Ultima modificacion:{' '}
+                                {selectedFile.lastModifiedDate.toLocaleDateString()}
+                            </p>
+                        </div>
+                    ) : (
+                        <p>Seleccione un archivo para ver sus detalles</p>
+                    )}
                 </Box><br />
                 <Typography variant="body1" color="text.primary">
                     Ingresa nombre del archivo a cargar:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <ArticleIcon color="primary" />
-                    <TextField id="nombre" variant="standard" />
-                </Box><br />
-                <Typography variant="body1" color="text.primary">
-                    Archivo seleccionado:
-                </Typography>
-                <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                    <ArticleIcon color="primary" />
-                    <TextField id="archivo" variant="standard" />
+                    <TextField id="nombre" variant="standard" onChange={event => setNombre(event.target.value)}/>
                 </Box><br />
                 <Typography variant="body1" color="text.primary">
                     Tipo Archivo:
@@ -57,8 +118,8 @@ export default function SubirArchivo() {
                             aria-labelledby="demo-row-radio-buttons-group-label"
                             name="row-radio-buttons-group"
                         >
-                            <FormControlLabel value="publico" control={<Radio />} label="Publico" />
-                            <FormControlLabel value="privado" control={<Radio />} label="Privado" />
+                            <FormControlLabel value="1" control={<Radio />} label="Publico" onChange={event => setVisibilidad(event.target.value)}/>
+                            <FormControlLabel value="0" control={<Radio />} label="Privado" onChange={event => setVisibilidad(event.target.value)}/>
                         </RadioGroup>
                     </FormControl>
                 </Box><br />
@@ -67,12 +128,12 @@ export default function SubirArchivo() {
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PasswordIcon color="primary" />
-                    <TextField id="pws" variant="standard" type='password' />
+                    <TextField id="pws" variant="standard" type='password' onChange={event => setPwd(event.target.value)}/>
                 </Box><br />
             </CardContent>
             <CardActions>
-                <Button size="medium">Cargar</Button>
-                <Button size="medium">Cancelar</Button>
+                <Button size="medium" onClick={cargar}>Cargar</Button>
+                <Button size="medium" onClick={cancelar}>Cancelar</Button>
             </CardActions>
         </Card>
     );
