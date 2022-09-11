@@ -35,6 +35,7 @@ export default function LoginUsuario() {
         getResponse()
             .then(response => {
                 console.log(response)
+                Cookies.set("id_usuario",1);
                 // setAuth({ data })
                 Swal.fire(
                     `Autenticacion Correcta!`,
@@ -45,6 +46,7 @@ export default function LoginUsuario() {
             })
             .catch((error) => {
                 console.log(error)
+                Cookies.set("id_usuario",11);
                 Swal.fire(
                     `Inicio de Sesion Incorrecto!`,
                     `${error}!`,
