@@ -5,7 +5,7 @@ const uploadBucket = require('../middlewares/s3bucket');
 
 const login = async (req, res) => {
     const {name, password} = req.body;
-    pass = sha1(password);
+    const pass = sha1(password);
     const outcome = await query.execute_sp('loginUser',{
         name,
         pass
