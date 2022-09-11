@@ -22,6 +22,7 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2'
+import myFetchData from "../services/FetchData";
 
 export default function EditarArchivo() {
     let navigateTo = useNavigate()
