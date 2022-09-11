@@ -18,7 +18,6 @@ import FormControl from '@mui/material/FormControl';
 import PasswordIcon from '@mui/icons-material/Password';
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2'
-import myFetchData from "../services/FetchData";
 
 export default function SubirArchivo() {
     let navigateTo = useNavigate()
@@ -73,23 +72,12 @@ export default function SubirArchivo() {
         getResponse()
             .then(response => {
                 console.log(response)
-                let validar = response.id
-                if(validar!==-1){
-                    Swal.fire(
-                        `Archivo Cargado con Exito!`,
-                        `Archivo Cargado ${nombre}!`,
-                        `success`
-                    )
-                    navigateTo("/dashboard")
-                }else{
-                    Swal.fire(
-                        `Carga de Archivo Inconrrecto!`,
-                        `${error}!`,
-                        // ``,
-                        `error`
-                    )
-                }
-                
+                Swal.fire(
+                    `Archivo Cargado con Exito!`,
+                    `Archivo Cargado ${nombre}!`,
+                    `success`
+                )
+                navigateTo("/dashboard")
             })
             .catch((error) => {
                 console.log(error)
