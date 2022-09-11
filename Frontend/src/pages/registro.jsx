@@ -61,14 +61,12 @@ export default function RegistroUsuario() {
 
         if (password1 === passwordc1) {
             console.log(selectedFile.name)
-            let exte = selectedFile.name.split('.')[1]
-            console.log(exte)
             const datos = {
                 user: user1,
                 email: email1,
                 password: password1,
                 photo: base64code,
-                ext: exte
+                ext: selectedFile.name
             }
             console.log(datos)
             console.log(base64code)
