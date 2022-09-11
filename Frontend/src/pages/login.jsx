@@ -14,7 +14,7 @@ import PasswordIcon from '@mui/icons-material/Password';
 
 export default function LoginUsuario() {
     let navigateTo = useNavigate()
-    const [data, setdata] = useState({ user: "", pwd: ""})
+    const [data, setdata] = useState({ name: "", password: ""})
 
     function handlechange(e) {
         setdata({ ...data, [e.target.name]: e.target.value })
@@ -22,13 +22,13 @@ export default function LoginUsuario() {
 
     async function loggearse(){
         console.log(data) 
-        // const getResponse = async () => {
-        //     const response = await myFetchData.request("student/login", "POST", data)
-        //     return response
-        // }
-        // getResponse()
-        //     .then(response => console.log(response))
-        //     .catch((error) => console.log(error))
+        const getResponse = async () => {
+            const response = await myFetchData.request("student/login", "POST", data)
+            return response
+        }
+        getResponse()
+            .then(response => console.log(response))
+            .catch((error) => console.log(error))
     }
 
     function registrar(){
@@ -58,14 +58,14 @@ export default function LoginUsuario() {
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <InsertEmoticonIcon color="primary" />
-                    <TextField id="user" variant="standard" onChange={handlechange} name="user" value={data.user}/>
+                    <TextField id="name" variant="standard" onChange={handlechange} name="name" value={data.name}/>
                 </Box><br />
                 <Typography variant="body1" color="text.secondary">
                     Ingresa tu contraseña:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PasswordIcon color="primary" />
-                    <TextField id="pwd" variant="standard" type='password' onChange={handlechange} name="pwd" value={data.pwd}/>
+                    <TextField id="password" variant="standard" type='password' onChange={handlechange} name="password" value={data.password}/>
                 </Box><br />                
             </CardContent>
             <CardActions>
