@@ -1,12 +1,14 @@
 const execute_sp = require('../database/process');
 const query = require('../database/query');
+const sha1 = require('sha1');
 
 const login = async (req, res) => {
     
     const {name, password} = req.body;
+    pass = sha1(password);
     const outcome = await query.execute_sp('loginUser',{
         name,
-        password
+        pass
     });
     if (outcome.err){
         res.status(400).json(outcome.err);
@@ -20,10 +22,10 @@ const login = async (req, res) => {
 // usuario, correo, contrasenia, foto
 const register = async (req, res) => {
     const {email, password, user, photo} = req.body;
-    console.log(email, password, user, photo);
+    pass = sha1(password);
     const outcome = await query.execute_sp('newUser',{
         email,
-        password,
+        pass,
         user,
         photo
     });
