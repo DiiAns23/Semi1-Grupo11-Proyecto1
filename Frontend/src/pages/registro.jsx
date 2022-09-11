@@ -59,12 +59,16 @@ export default function RegistroUsuario() {
 
     async function registrar() {
 
-        if(password1===passwordc1){
+        if (password1 === passwordc1) {
+            console.log(selectedFile.name)
+            console.log(exte)
+            let exte = selectedFile.name.split('.')[1]
             const datos = {
                 user: user1,
                 email: email1,
                 password: password1,
-                photo: base64code
+                photo: base64code,
+                ext: exte
             }
             console.log(datos)
             console.log(base64code)
@@ -91,7 +95,7 @@ export default function RegistroUsuario() {
                         `error`
                     )
                 })
-        }else{
+        } else {
             Swal.fire(
                 `Regsitro de Cuenta Incorrecto!`,
                 `Las contraseñas no coinciden!`,
@@ -105,7 +109,7 @@ export default function RegistroUsuario() {
     }
 
     useEffect(() => { }, [])
-    
+
     return (
         <Card sx={{ minWidth: 250, minHeight: 450, marginX: 80, marginY: 2 }}>
             <CardMedia
