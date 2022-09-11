@@ -147,7 +147,7 @@ export default function EditarArchivo() {
                 }else{
                     Swal.fire(
                         `Edicion de Archivo Inconrrecto!`,
-                        `${error}!`,
+                        `Intenta de nuevo!`,
                         // ``,
                         `error`
                     )

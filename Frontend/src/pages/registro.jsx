@@ -88,7 +88,7 @@ export default function RegistroUsuario() {
                     console.log(error)
                     Swal.fire(
                         `Regsitro de Cuenta Incorrecto!`,
-                        `${error}!`,
+                        `Intenta de nuevo!`,
                         // ``,
                         `error`
                     )

@@ -84,7 +84,7 @@ export default function SubirArchivo() {
                 }else{
                     Swal.fire(
                         `Carga de Archivo Inconrrecto!`,
-                        `${error}!`,
+                        `Intenta de nuevo!`,
                         // ``,
                         `error`
                     )

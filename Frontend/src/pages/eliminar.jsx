@@ -91,7 +91,7 @@ export default function EliminarArchivo() {
                 }else{
                     Swal.fire(
                         `Eliminacion de Archivo Inconrrecto!`,
-                        `${error}!`,
+                        `Intenta de nuevo!`,
                         // ``,
                         `error`
                     )

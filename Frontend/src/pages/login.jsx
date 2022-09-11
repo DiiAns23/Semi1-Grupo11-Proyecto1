@@ -49,7 +49,7 @@ export default function LoginUsuario() {
                 }else{
                     Swal.fire(
                         `Inicio de Sesion Incorrecto!`,
-                        `${error}!`,
+                        `Revisa tus Credenciales!`,
                         // ``,
                         `error`
                     )
