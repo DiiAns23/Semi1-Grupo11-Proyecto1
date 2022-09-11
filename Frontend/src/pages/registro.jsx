@@ -64,7 +64,7 @@ export default function RegistroUsuario() {
                 user: user1,
                 email: email1,
                 password: password1,
-                photo: "none"
+                photo: base64code
             }
             console.log(datos)
             console.log(base64code)
