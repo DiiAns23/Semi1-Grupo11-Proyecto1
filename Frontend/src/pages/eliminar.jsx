@@ -79,12 +79,23 @@ export default function EliminarArchivo() {
         getResponse()
             .then(response => {
                 console.log(response)
-                Swal.fire(
-                    `Archivo Eliminado con Exito!`,
-                    `Archivo Eliminado ${nombre}!`,
-                    `success`
-                )
-                navigateTo("/dashboard")
+                let validar = response.id
+                if(validar!==-1){
+                    Swal.fire(
+                        `Archivo Eliminado con Exito!`,
+                        `Archivo Eliminado ${nombre}!`,
+                        `success`
+                    )
+                    navigateTo("/dashboard")
+                }else{
+                    Swal.fire(
+                        `Eliminacion de Archivo Inconrrecto!`,
+                        `Intenta de nuevo!`,
+                        // ``,
+                        `error`
+                    )
+                }
+                
             })
             .catch((error) => {
                 console.log(error)
