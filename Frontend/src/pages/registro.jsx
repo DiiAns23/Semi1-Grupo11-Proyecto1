@@ -13,14 +13,16 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
 import PasswordIcon from '@mui/icons-material/Password';
 import myFetchData from "../services/FetchData";
+import Swal from 'sweetalert2'
 
 export default function RegistroUsuario() {
     let navigateTo = useNavigate()
-    const [data, setdata] = useState({ user: "", email: "", password: "", photo:"" })
+    const [data, setdata] = useState({ user: "", email: "", password: "", photo: "" })
     const [user1, setUser] = useState("")
-    const [email1, setEmail]=useState("")
+    const [email1, setEmail] = useState("")
     const [password1, setPassword] = useState("")
-    const [photo1, setPhoto]=useState("")
+    const [passwordc1, setPasswordc] = useState("")
+    const [photo1, setPhoto] = useState("")
 
 
     function handlechange(e) {
@@ -56,31 +58,54 @@ export default function RegistroUsuario() {
     };
 
     async function registrar() {
-        
-        const datos ={
-            user: user1,
-            email: email1,
-            password:password1,
-            photo:"d"
+
+        if(password1===passwordc1){
+            const datos = {
+                user: user1,
+                email: email1,
+                password: password1,
+                photo: base64code
+            }
+            console.log(datos)
+            console.log(base64code)
+            const getResponse = async () => {
+                const response = await myFetchData.request("student/register", "POST", datos)
+                return response
+            }
+            getResponse()
+                .then(response => {
+                    console.log(response)
+                    Swal.fire(
+                        `Registro Correcto!`,
+                        `Inicia Sesion ${user1}!`,
+                        `success`
+                    )
+                    navigateTo("/login")
+                })
+                .catch((error) => {
+                    console.log(error)
+                    Swal.fire(
+                        `Regsitro de Cuenta Incorrecto!`,
+                        `${error}!`,
+                        // ``,
+                        `error`
+                    )
+                })
+        }else{
+            Swal.fire(
+                `Regsitro de Cuenta Incorrecto!`,
+                `Las contraseñas no coinciden!`,
+                `error`
+            )
         }
-        console.log(datos)
-        console.log(base64code)
-        const getResponse = async () => {
-            const response = await myFetchData.request("student/register", "POST", datos)
-            return response
-        }
-        getResponse()
-            .then(response => console.log(response))
-            .catch((error) => console.log(error))
     }
 
-    function cancelar(){
+    function cancelar() {
         navigateTo("/")
     }
 
-    useEffect(() => {
-        
-    }, [])
+    useEffect(() => { }, [])
+    
     return (
         <Card sx={{ minWidth: 250, minHeight: 450, marginX: 80, marginY: 2 }}>
             <CardMedia
@@ -125,7 +150,7 @@ export default function RegistroUsuario() {
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PasswordIcon color="primary" />
-                    <TextField id="pwd_confir" type="password" variant="standard"  />
+                    <TextField id="pwd_confir" type="password" variant="standard" onChange={event => setPasswordc(event.target.value)} />
                 </Box><br />
                 <Typography variant="body1" color="text.secondary">
                     Carga tu foto de perfil:

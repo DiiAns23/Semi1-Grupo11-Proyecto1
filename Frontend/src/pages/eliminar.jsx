@@ -20,7 +20,7 @@ export default function EliminarArchivo() {
     };
 
     return (
-        <Card sx={{ maxWidth: 450, maxHeight: 950, marginX: 90, marginY: 10 }}>
+        <Card sx={{ minWidth: 350, minHeight: 450, marginX: 90, marginY: 10 }}>
             <CardContent>
                 <Typography variant="h5" component="div" align='center'>
                     Eliminar Archivo
