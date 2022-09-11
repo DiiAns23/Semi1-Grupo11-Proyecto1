@@ -16,7 +16,6 @@ import Select from '@mui/material/Select';
 import SearchIcon from '@mui/icons-material/Search';
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2'
-import myFetchData from "../services/FetchData";
 
 export default function EliminarArchivo() {
     let navigateTo = useNavigate()

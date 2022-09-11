@@ -22,7 +22,6 @@ import IconButton from '@mui/material/IconButton';
 import SearchIcon from '@mui/icons-material/Search';
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2'
-import myFetchData from "../services/FetchData";
 
 export default function EditarArchivo() {
     let navigateTo = useNavigate()
@@ -156,7 +155,12 @@ export default function EditarArchivo() {
             })
             .catch((error) => {
                 console.log(error)
-                
+                Swal.fire(
+                    `Edicion de Archivo Inconrrecto!`,
+                    `${error}!`,
+                    // ``,
+                    `error`
+                )
             })
     }
 
