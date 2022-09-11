@@ -66,7 +66,7 @@ export default function EliminarArchivo() {
     async function eliminar(){
         console.log(age)
         const getResponse = async () => {
-            let id = Cookies.get("id_usuario")
+            let id = parseInt(Cookies.get("id_usuario"))
             const datos = {
                 id_usuario: id,
                 name: age,
