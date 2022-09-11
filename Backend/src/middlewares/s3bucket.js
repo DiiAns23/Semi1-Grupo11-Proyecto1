@@ -21,7 +21,7 @@ const uploadFile = (archivo ,image) => {
 const uploadBucket = (foto, ext) => {
     const date = new Date();
     const output = `${date.getFullYear()}-${date.getMonth()}-${date.getDate()}-${date.getHours()}-${date.getMinutes()}-${date.getSeconds()}`;
-    const nombre = `${output}.${ext}`;
+    const nombre = `${output}-${ext}`;
     uploadFile(nombre, foto);
     return nombre;
 }
