@@ -55,55 +55,55 @@ export default function SubirArchivo() {
     };
 
     async function cargar() {
+        let id = parseInt(Cookies.get("id_usuario"))
+        let exte = selectedFile.name.split('.')[1]
+        let nombres = nombre + '.' + exte
+        const datos = {
+            id_usuario: id,
+            name: nombres,
+            file: base64code,
+            visbility: visibilidad,
+            password: pwd
+        }
+        console.log(datos)
         const getResponse = async () => {
-            let id = parseInt(Cookies.get("id_usuario"))
-            let exte = selectedFile.name.split('.')[1]
-            let nombres = nombre + '.' + exte
-            const datos = {
-                id_usuario: id,
-                name: nombres,
-                file: base64code,
-                visbility: visibilidad,
-                password: pwd
-            }
-            console.log(datos)
             const response = await myFetchData.request("home/upload", "POST", datos)
             return response
         }
         getResponse()
-        .then(response => {
-            console.log(response)
-            let validar = response.id
-            if(validar!==-1){
-                Swal.fire(
-                    `Archivo Cargado con Exito!`,
-                    `Archivo Cargado ${nombre}!`,
-                    `success`
-                )
-                navigateTo("/dashboard")
-            }else{
+            .then(response => {
+                console.log(response)
+                let validar = response.id
+                if (validar !== -1) {
+                    Swal.fire(
+                        `Archivo Cargado con Exito!`,
+                        `Archivo Cargado ${nombre}!`,
+                        `success`
+                    )
+                    navigateTo("/dashboard")
+                } else {
+                    Swal.fire(
+                        `Carga de Archivo Inconrrecto!`,
+                        `Intenta de nuevo!`,
+                        // ``,
+                        `error`
+                    )
+                }
+
+            })
+            .catch((error) => {
+                console.log(error)
                 Swal.fire(
                     `Carga de Archivo Inconrrecto!`,
-                    `Intenta de nuevo!`,
+                    `${error}!`,
                     // ``,
                     `error`
                 )
-            }
-            
-        })
-        .catch((error) => {
-            console.log(error)
-            Swal.fire(
-                `Carga de Archivo Inconrrecto!`,
-                `${error}!`,
-                // ``,
-                `error`
-            )
-        })
+            })
 
 
 
-       
+
     }
 
     function cancelar() {
