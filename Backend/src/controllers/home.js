@@ -67,8 +67,6 @@ const editFile = async (req, res) => {
 const getPublications = async (req, res) => {
     // Aqui se obtienen las publicaciones del usuario
     const { id_usuario } = req.body;
-    console.log("id_user_logged: ", id_usuario);
-    res.status(200).json({"id_user_logged": id_usuario});
 
 }
 

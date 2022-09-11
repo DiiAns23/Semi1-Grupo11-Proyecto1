@@ -62,9 +62,9 @@ router.post('/aceptFriend', [
 // });
 
 
-// let parametrosGetObject = {
+// const parametrosGetObject = {
 //     Bucket: 'semi-proyecto1-g11-s22022',
-//     Key: 'node.png'
+//     Key: '2022-8-11-11-42-59.png'
 // }
 // s3.getObject(parametrosGetObject, (err, data) => {
 //     if (err) {
