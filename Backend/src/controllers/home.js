@@ -73,6 +73,7 @@ const getPublications = async (req, res) => {
 }
 
 
+
 module.exports = {
     getData,
     uploadFile,
