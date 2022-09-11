@@ -120,7 +120,7 @@ export default function EditarArchivo() {
         console.log(visibilidad)
         console.log(pwd)
         const getResponse = async () => {
-            let id = Cookies.get("id_usuario")
+            let id = parseInt(Cookies.get("id_usuario"))
             const datos = {
                 id_usuario: id,
                 name: nombreViejo,

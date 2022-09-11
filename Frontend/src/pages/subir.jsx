@@ -55,7 +55,7 @@ export default function SubirArchivo() {
 
     async function cargar() {
         const getResponse = async () => {
-            let id = Cookies.get("id_usuario")
+            let id = parseInt(Cookies.get("id_usuario"))
             let exte = selectedFile.name.split('.')[1]
             let nombres = nombre + '.' + exte
             const datos = {
