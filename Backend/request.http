@@ -3,9 +3,9 @@ POST http://localhost:4200/student/register HTTP/1.1
 Content-Type: application/json
 
 {
-    "user": "Prueba4",
-    "email": "prueba4@gmail.com",
-    "password": "password",
+    "user": "Prueba6",
+    "email": "prueba6@gmail.com",
+    "password": "encriptada",
     "photo": "none"
 }
 
@@ -14,8 +14,8 @@ POST http://localhost:4200/student/login HTTP/1.1
 Content-Type: application/json
 
 {
-    "name": "Prueba1",
-    "password": "password"
+    "name": "Prueba4",
+    "password": "encriptada"
 }
 
 ### SEND REQUEST FRIEND
@@ -23,8 +23,8 @@ POST http://localhost:4200/student/addFriend HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_usuario_f": 1,
-    "id_friend_f": 3
+    "id_usuario_f": 3,
+    "id_friend_f": 4
 }
 
 ### ACCEPT REQUEST FRIEND
@@ -32,8 +32,8 @@ POST http://localhost:4200/student/aceptFriend HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_usuario": 3,
-    "id_friend": 1
+    "id_usuario": 4,
+    "id_friend": 3
 }
 
 ### NEW PUBLICATION
@@ -41,11 +41,11 @@ POST http://localhost:4200/home/upload HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_usuario": 2,
-    "name": "Archivo 5",
-    "file": "Archivo enviado desde NodeJS",
+    "id_usuario": 6,
+    "name": "Archivo 13",
+    "file": "Archivo ",
     "visibility": 1,
-    "password": "password"
+    "password": "encriptada"
 }
 
 ### DELETE PUBLICATION
@@ -68,4 +68,12 @@ Content-Type: application/json
     "new_name": "Nombre Cambiado",
     "visibility": 0,
     "password": "password"
+}
+
+### GET PUBLICATIONS
+POST http://localhost:4200/home/getPublications HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_usuario": 2
 }

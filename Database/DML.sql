@@ -6,7 +6,7 @@ DROP PROCEDURE IF EXISTS newUser;
 DELIMITER $$
     CREATE PROCEDURE newUser(
         IN _email VARCHAR(50),
-        IN _password VARCHAR(50),
+        IN _password VARCHAR(255),
         IN _name VARCHAR(50),
         IN _photo VARCHAR(50)
     )
@@ -31,7 +31,7 @@ DROP PROCEDURE IF EXISTS loginUser;
 DELIMITER $$
     CREATE PROCEDURE loginUser(
         IN _name VARCHAR(50),
-        IN _password VARCHAR(50)
+        IN _password VARCHAR(255)
     )
     BEGIN
         DECLARE id INT;
@@ -125,7 +125,7 @@ DELIMITER $$
     CREATE PROCEDURE deletePublication(
         IN _id_usuario INT,
         IN _archivo VARCHAR(255),
-        IN _password VARCHAR(50)
+        IN _password VARCHAR(255)
     )
     BEGIN
 		DECLARE pass INT;
@@ -148,7 +148,7 @@ DELIMITER $$
         IN _nombre VARCHAR(255),
         IN _new_nombre VARCHAR(255),
         IN _visibilidad BOOLEAN,
-        IN _password VARCHAR(50)
+        IN _password VARCHAR(255)
     )
     BEGIN
 		DECLARE pass INT;
@@ -163,15 +163,24 @@ DELIMITER $$
 DELIMITER ;;
 
 
-
-
-CALL deletePublication(1,'Archivo 1', 'password');
+-- GET DATA TO PUBLICATIONS
+DROP PROCEDURE IF EXISTS getData;
+DELIMITER $$
+	CREATE PROCEDURE getData(
+		IN _id_usuario INT
+    )
+    BEGIN
+		SELECT * FROM PUBLICATION p INNER JOIN FRIEND f ON p.id_publication = f.isuario_f OR (p.id_publication = f.id_friend_f OR p.id_publication = f.id_usuario_f);
+    
+    END; $$
+DELIMITER ;;
 
 SELECT * FROM USUARIO;
 
 SELECT * FROM FRIEND;
 
 SELECT * FROM PUBLICATION;
+
 
 
 
