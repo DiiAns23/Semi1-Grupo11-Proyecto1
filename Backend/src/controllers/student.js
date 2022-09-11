@@ -11,11 +11,11 @@ const login = async (req, res) => {
         pass
     });
     if (outcome.err){
-        res.status(400).json(outcome.err);
-    } else {
-        res.status(200).json(outcome.result);
+        return res.status(400).json(outcome.err);
+    } else if(outcome.result) {
+        return res.status(200).json(outcome.result[0][0]);
     }
-    return;
+    return res.status(400).json({id:-1});
 }
 
 // REGISTRO
@@ -31,11 +31,10 @@ const register = async (req, res) => {
         foto
     });
     if (outcome.err){
-        res.status(400).json(outcome.err);
+        return res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        return res.status(200).json(outcome.result);
     }
-    return;
 }
 
 // ENVIAR SOLICITUD DE AMISTAD
