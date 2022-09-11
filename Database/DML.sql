@@ -164,14 +164,13 @@ DELIMITER ;;
 
 
 -- GET DATA TO PUBLICATIONS
-DROP PROCEDURE IF EXISTS getData;
+DROP PROCEDURE IF EXISTS getDataUser;
 DELIMITER $$
-	CREATE PROCEDURE getData(
+	CREATE PROCEDURE getDataUser(
 		IN _id_usuario INT
     )
     BEGIN
-		SELECT * FROM PUBLICATION p INNER JOIN FRIEND f ON p.id_publication = f.isuario_f OR (p.id_publication = f.id_friend_f OR p.id_publication = f.id_usuario_f);
-    
+		SELECT * FROM PUBLICATION WHERE id_usuario = _id_usuario;    
     END; $$
 DELIMITER ;;
 

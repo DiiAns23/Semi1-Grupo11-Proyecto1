@@ -76,10 +76,10 @@ router.post('/edit',[
 
 // VER PUBLICACIONES DE AMIGOS
 
-router.post('/getPublications',[
+router.post('/getPublicationsUser',[
     check('id_usuario', 'El id del usuario es obligatorio').not().isEmpty(),
     validateAtributes,
-], home.getPublications);
+], home.getPublicationsUser);
 
 
 module.exports = router;

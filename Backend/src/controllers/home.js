@@ -64,10 +64,18 @@ const editFile = async (req, res) => {
 }
 
 
-const getPublications = async (req, res) => {
+const getPublicationsUser = async (req, res) => {
     // Aqui se obtienen las publicaciones del usuario
     const { id_usuario } = req.body;
-
+    const outcome = await execute_sp('call getDataUser(?);', [
+        id_usuario,
+    ]);
+    if (outcome.err){
+        res.status(400).json(outcome.err);
+    }else{
+        res.status(200).json(outcome.result);
+    }
+    return;
 }
 
 
@@ -77,5 +85,5 @@ module.exports = {
     uploadFile,
     editFile,
     deleteFile,
-    getPublications
+    getPublicationsUser
 }
