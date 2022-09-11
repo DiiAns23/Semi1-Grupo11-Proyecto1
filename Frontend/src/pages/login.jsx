@@ -34,8 +34,9 @@ export default function LoginUsuario() {
         }
         getResponse()
             .then(response => {
-                console.log(response)
+                console.log(response[0].id)
                 Cookies.set("id_usuario",1);
+                Cookies.set("username",data.name);
                 // setAuth({ data })
                 Swal.fire(
                     `Autenticacion Correcta!`,
@@ -47,6 +48,7 @@ export default function LoginUsuario() {
             .catch((error) => {
                 console.log(error)
                 Cookies.set("id_usuario",11);
+                Cookies.set("username",data.name);
                 Swal.fire(
                     `Inicio de Sesion Incorrecto!`,
                     `${error}!`,
@@ -61,7 +63,7 @@ export default function LoginUsuario() {
     }
 
     return (
-        <Card sx={{ maxWidth: 550, maxHeight: 950, marginX: 80, marginY: 2 }}>
+        <Card sx={{ minWidth: 400, minHeight: 350, marginX: 80, marginY: 2 }}>
             <CardMedia
                 component="img"
                 alt="super storage"

@@ -109,7 +109,7 @@ export default function RegistroUsuario() {
     useEffect(() => { }, [])
 
     return (
-        <Card sx={{ minWidth: 250, minHeight: 450, marginX: 80, marginY: 2 }}>
+        <Card sx={{ minWidth: 400, minHeight: 450, marginX: 80, marginY: 2 }}>
             <CardMedia
                 component="img"
                 alt="super storage"
