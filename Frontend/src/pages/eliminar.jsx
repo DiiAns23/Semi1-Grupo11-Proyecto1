@@ -16,6 +16,7 @@ import Select from '@mui/material/Select';
 import SearchIcon from '@mui/icons-material/Search';
 import Cookies from "js-cookie";
 import Swal from 'sweetalert2'
+import myFetchData from "../services/FetchData";
 
 export default function EliminarArchivo() {
     let navigateTo = useNavigate()
@@ -79,12 +80,23 @@ export default function EliminarArchivo() {
         getResponse()
             .then(response => {
                 console.log(response)
-                Swal.fire(
-                    `Archivo Eliminado con Exito!`,
-                    `Archivo Eliminado ${nombre}!`,
-                    `success`
-                )
-                navigateTo("/dashboard")
+                let validar = response.id
+                if(validar!==-1){
+                    Swal.fire(
+                        `Archivo Eliminado con Exito!`,
+                        `Archivo Eliminado ${nombre}!`,
+                        `success`
+                    )
+                    navigateTo("/dashboard")
+                }else{
+                    Swal.fire(
+                        `Eliminacion de Archivo Inconrrecto!`,
+                        `${error}!`,
+                        // ``,
+                        `error`
+                    )
+                }
+                
             })
             .catch((error) => {
                 console.log(error)
