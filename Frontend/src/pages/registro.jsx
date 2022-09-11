@@ -16,7 +16,11 @@ import myFetchData from "../services/FetchData";
 
 export default function RegistroUsuario() {
     let navigateTo = useNavigate()
-    const [data, setdata] = useState({ name: "", user: "", pwd: "", pwd_confir: "" })
+    const [data, setdata] = useState({ user: "", email: "", password: "", photo:"" })
+    const [user1, setUser] = useState("")
+    const [email1, setEmail]=useState("")
+    const [password1, setPassword] = useState("")
+    const [photo1, setPhoto]=useState("")
 
 
     function handlechange(e) {
@@ -52,10 +56,17 @@ export default function RegistroUsuario() {
     };
 
     async function registrar() {
-        console.log(data)
+        
+        const datos ={
+            user: user1,
+            email: email1,
+            password:password1,
+            photo:"d"
+        }
+        console.log(datos)
         console.log(base64code)
         const getResponse = async () => {
-            const response = await myFetchData.request("student/register", "POST", data)
+            const response = await myFetchData.request("student/register", "POST", datos)
             return response
         }
         getResponse()
@@ -92,28 +103,29 @@ export default function RegistroUsuario() {
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <AccountCircle color="primary" />
-                    <TextField id="name" variant="standard" onChange={handlechange} name="name" value={data.name} />
+                    <TextField id="user" variant="standard" onChange={event => setUser(event.target.value)} />
                 </Box><br />
                 <Typography variant="body1" color="text.secondary">
                     Ingresa tu usuario:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <InsertEmoticonIcon color="primary" />
-                    <TextField id="user" variant="standard" onChange={handlechange} name="user" value={data.user} />
+                    {/* <TextField id="email" variant="standard" onChange={handlechange} name="email" value={data.email} /> */}
+                    <TextField id="email" variant="standard" onChange={event => setEmail(event.target.value)} />
                 </Box><br />
                 <Typography variant="body1" color="text.secondary">
                     Ingresa tu contraseña:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PasswordIcon color="primary" />
-                    <TextField id="pwd" variant="standard" type='password' onChange={handlechange} name="pwd" value={data.pwd} />
+                    <TextField id="password" variant="standard" type='password' onChange={event => setPassword(event.target.value)} />
                 </Box><br />
                 <Typography variant="body1" color="text.secondary">
                     Confirma tu contraseña:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PasswordIcon color="primary" />
-                    <TextField id="pwd_confir" type="password" variant="standard" onChange={handlechange} name="pwd_confir" value={data.pwd_confir} />
+                    <TextField id="pwd_confir" type="password" variant="standard"  />
                 </Box><br />
                 <Typography variant="body1" color="text.secondary">
                     Carga tu foto de perfil:
