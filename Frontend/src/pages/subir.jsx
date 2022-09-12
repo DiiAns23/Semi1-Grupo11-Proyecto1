@@ -58,11 +58,12 @@ export default function SubirArchivo() {
         let id = parseInt(Cookies.get("id_usuario"))
         let exte = selectedFile.name.split('.')[1]
         let nombres = nombre + '.' + exte
+        let visi = parseInt(visibilidad)
         const datos = {
             id_usuario: id,
             name: nombres,
             file: base64code,
-            visbility: visibilidad,
+            visbility: visi,
             password: pwd
         }
         console.log(datos)
