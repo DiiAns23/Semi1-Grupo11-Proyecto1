@@ -66,14 +66,14 @@ export default function EliminarArchivo() {
 
     async function eliminar(){
         console.log(age)
-        const getResponse = async () => {
-            let id = parseInt(Cookies.get("id_usuario"))
+        let id = parseInt(Cookies.get("id_usuario"))
             const datos = {
                 id_usuario: id,
                 name: age,
                 password: pwd
             }
             console.log(datos)
+        const getResponse = async () => {            
             const response = await myFetchData.request("home/delete", "DELETE", datos)
             return response
         }
