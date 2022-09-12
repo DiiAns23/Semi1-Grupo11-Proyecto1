@@ -63,7 +63,7 @@ export default function SubirArchivo() {
             id_usuario: id,
             name: nombres,
             file: base64code,
-            visbility: visi,
+            visibility: visi,
             password: pwd
         }
         console.log(datos)
