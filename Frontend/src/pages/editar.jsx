@@ -120,16 +120,17 @@ export default function EditarArchivo() {
         console.log(nombreViejo)
         console.log(visibilidad)
         console.log(pwd)
-        const getResponse = async () => {
-            let id = parseInt(Cookies.get("id_usuario"))
+        let id = parseInt(Cookies.get("id_usuario"))
+            let vis = parent(visibilidad)
             const datos = {
                 id_usuario: id,
                 name: nombreViejo,
                 new_name: nombre,
-                visbility: visibilidad,
+                visbility: vis,
                 password: pwd
             }
             console.log(datos)
+        const getResponse = async () => {            
             const response = await myFetchData.request("home/edit", "UPDATE", datos)
             return response
         }
