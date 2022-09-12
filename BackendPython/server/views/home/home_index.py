@@ -3,7 +3,7 @@
 from flask.views import View
 
 
-class PublicWarmup(View):
+class HomeIndex(View):
 
     def dispatch_request(self):
-        return "I'm ready"
+        return "Welcome Home :)"

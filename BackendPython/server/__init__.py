@@ -2,9 +2,15 @@
 Initialize Flask app
 """
 from flask import Flask
+from flask_mysqldb import MySQL
+from flask_cors import CORS
 import os
+from dotenv import load_dotenv
+load_dotenv() 
+
 
 app = Flask('server')
+CORS(app)
 
 if os.getenv('FLASK_CONF') == 'TEST':
     app.config.from_object('server.settings.Testing')
@@ -29,11 +35,14 @@ else:
     app.config.from_object('server.settings.Production')
 
 
+mysql = MySQL(app)
+
 # Pull in URL dispatch routes
 # Publics 
-from server.views.public.public_warmup import PublicWarmup
-from server.views.public.public_index import PublicIndex
-from server.views.public.public_say_hello import PublicSayHello
+#from server.views.public.public_warmup import PublicWarmup
+#from server.views.public.public_index import PublicIndex
+#from server.views.public.public_say_hello import PublicSayHello
+
 
 
 # URL dispatch rules
@@ -42,4 +51,6 @@ from server.views.public.public_say_hello import PublicSayHello
 
 #app.add_url_rule('/', 'public_index', view_func=PublicIndex.as_view('public_index'))
 
-app.add_url_rule('/hello/<username>', 'public_say_hello', view_func=PublicSayHello.as_view('public_say_hello'))
+#app.add_url_rule('/hello/<username>', 'public_say_hello', view_func=PublicSayHello.as_view('public_say_hello'))
+
+from server import urls

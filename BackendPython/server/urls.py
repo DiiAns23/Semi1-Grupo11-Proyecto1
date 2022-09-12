@@ -4,21 +4,39 @@
 urls.py
 URL dispatch route mappings and error handlers
 """
-from flask import render_template
-
+# Utils
+from flask import render_template,json
+# App
 from server import app
-
-# Publics 
-from server.views.public.public_warmup import PublicWarmup
-from server.views.public.public_index import PublicIndex
+#   Publics 
 from server.views.public.public_say_hello import PublicSayHello
+#   Home
+from server.views.home.home_index import HomeIndex
+#   Students
+from server.views.student.student_index import StudentIndex
+from server.views.student.student_login import StudentLogin
+from server.views.student.student_register import StudentRegister
+from server.views.student.student_addfriend import StudentAddFriend
+from server.views.student.student_acceptfriend import StudentAcceptFriend
+from server.views.student.student_crud import StudentCRUD
 
 
-# URL dispatch rules
+# PUBLIC
+app.add_url_rule('/', 'public_say_hello', view_func=PublicSayHello.as_view('public_say_hello'))
 
-app.add_url_rule('/_ah/warmup', 'public_warmup', view_func=PublicWarmup.as_view('public_warmup'))
+# HOME
+app.add_url_rule('/home/', 'home_index', view_func=HomeIndex.as_view('home_index'))
+app.add_url_rule('/home/upload', 'home_upload', view_func=HomeIndex.as_view('home_upload'))
+app.add_url_rule('/home/delete', 'home_delete', view_func=HomeIndex.as_view('home_delete'))
+app.add_url_rule('/home/edit', 'home_edit', view_func=HomeIndex.as_view('home_edit'))
+app.add_url_rule('/home/getPublications', 'home_getpublications', view_func=HomeIndex.as_view('home_getpublications'))
 
-app.add_url_rule('/', 'public_index', view_func=PublicIndex.as_view('public_index'))
 
-app.add_url_rule('/hello/<username>', 'public_say_hello', view_func=PublicSayHello.as_view('public_say_hello'))
+# STUDENTS
+app.add_url_rule('/student/', 'student_index', view_func=StudentIndex.as_view('student_index'))
+app.add_url_rule('/student/login', 'student_login', view_func=StudentIndex.as_view('student_login'))
+app.add_url_rule("/student/register",'student_register', view_func=StudentCRUD.as_view("student_register"))
+app.add_url_rule('/student/addFriend', 'student_addfriend', view_func=StudentIndex.as_view('student_addfriend'))
+app.add_url_rule('/student/aceptFriend', 'student_acceptfriend', view_func=StudentIndex.as_view('student_acceptfriend'))
+
 

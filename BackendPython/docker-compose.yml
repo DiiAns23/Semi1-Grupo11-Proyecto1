@@ -1,0 +1,14 @@
+
+# Construccion del Docker-compose
+version: '3'
+services: 
+  microservice:
+    build: .
+    image: prueba
+    environment:
+    - HOST=0.0.0.0
+    - PORT=4000
+    ports:
+    - "4000:4000"
+# docker-compose build
+# docker-compose up -d
