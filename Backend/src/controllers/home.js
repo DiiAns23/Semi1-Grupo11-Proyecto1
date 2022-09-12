@@ -11,6 +11,7 @@ const getData = async (req, res) => {
 
 const uploadFile = async (req, res) => {
     // Aqui se suben los archivos del usuario
+    console.log('Entrando a uploadFile');
     const { id_usuario, name, file, visibility, password } = req.body;
     const f = uploadBucket(file, name);
     const pass = sha1(password);
@@ -21,10 +22,11 @@ const uploadFile = async (req, res) => {
         visibility,
         pass
     ]);
+    console.log(outcome);
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        res.status(200).json(outcome[0][0]);
     }
     return;
 }
@@ -75,7 +77,7 @@ const getPublicationsUser = async (req, res) => {
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        res.status(200).json(outcome[0]);
     }
     return;
 }

@@ -182,9 +182,6 @@ SELECT * FROM FRIEND;
 
 SELECT * FROM PUBLICATION;
 
+CALL getDataUser(7);
 
-
-
-
-
-
+SELECT id_publication, nombre FROM PUBLICATION WHERE id_usuario = 7;    
