@@ -71,9 +71,9 @@ Content-Type: application/json
 }
 
 ### GET PUBLICATIONS
-POST http://localhost:4200/home/getPublications HTTP/1.1
+POST http://localhost:4200/home/getPublicationsUser HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_usuario": 2
+    "id_usuario": 7
 }
