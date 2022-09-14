@@ -22,58 +22,123 @@ export default function EliminarArchivo() {
     let navigateTo = useNavigate()
     const [age, setAge] = useState('');
     const [pwd, setPwd] = useState("");
+    const [datas, setDatas] = useState([]);
     const handleChange = (event) => {
         setAge(event.target.value);
     };
 
+    const data = [
+        {
+            "id_publication": 1,
+            "id_usuario": 7,
+            "nombre": "Archivo 13",
+            "archivo": "2022-8-11-17-15-12-Archivo 13",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 2,
+            "id_usuario": 7,
+            "nombre": "Archivo 14",
+            "archivo": "2022-8-11-17-16-6-Archivo 14",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 3,
+            "id_usuario": 7,
+            "nombre": "Archivo 15",
+            "archivo": "2022-8-11-17-16-41-Archivo 15",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 4,
+            "id_usuario": 7,
+            "nombre": "Archivo 16",
+            "archivo": "2022-8-11-17-19-12-Archivo 16",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 5,
+            "id_usuario": 7,
+            "nombre": "Archivo 17",
+            "archivo": "2022-8-11-17-21-19-Archivo 17",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 6,
+            "id_usuario": 7,
+            "nombre": "Archivo 18",
+            "archivo": "2022-8-11-17-22-18-Archivo 18",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 7,
+            "id_usuario": 7,
+            "nombre": "Archivo 19",
+            "archivo": "2022-8-11-17-22-57-Archivo 19",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 8,
+            "id_usuario": 7,
+            "nombre": "Archivo 20",
+            "archivo": "2022-8-11-17-23-8-Archivo 20",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 9,
+            "id_usuario": 7,
+            "nombre": "Archivo 123",
+            "archivo": "2022-8-11-17-28-28-Archivo 123",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 10,
+            "id_usuario": 7,
+            "nombre": "Archivo 321",
+            "archivo": "2022-8-11-17-40-30-Archivo 321",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 11,
+            "id_usuario": 7,
+            "nombre": "Archivo 31",
+            "archivo": "2022-8-11-17-41-14-Archivo 31",
+            "visibilidad": 1
+        }
+    ]
+
     async function obtenerArchivos() {
         console.log("entre aqui")
-        // const getResponse = async () => {
-        //     let id = Cookies.get("id_usuario")
-        //     let exte = selectedFile.name.split('.')[1]
-        //     let nombres = nombre + '.' + exte
-        //     const datos = {
-        //         id_usuario: id,
-        //         name: nombres,
-        //         file: base64code,
-        //         visbility: visibilidad,
-        //         password: pwd
-        //     }
-        //     console.log(datos)
-        //     const response = await myFetchData.request("home/upload", "POST", datos)
-        //     return response
-        // }
-        // getResponse()
-        //     .then(response => {
-        //         console.log(response)
-        //         Swal.fire(
-        //             `Archivo Cargado con Exito!`,
-        //             `Archivo Cargado ${nombre}!`,
-        //             `success`
-        //         )
-        //         navigateTo("/dashboard")
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //         Swal.fire(
-        //             `Carga de Archivo Inconrrecto!`,
-        //             `${error}!`,
-        //             // ``,
-        //             `error`
-        //         )
-        //     })
-    }
-
-    async function eliminar(){
-        console.log(age)
-        let id = parseInt(Cookies.get("id_usuario"))
+        const getResponse = async () => {
+            let id = parseInt(Cookies.get("id_usuario"))
             const datos = {
-                id_usuario: id,
-                name: age,
-                password: pwd
+                id_usuario: id
             }
             console.log(datos)
-        const getResponse = async () => {            
+            const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
+            return response
+        }
+        getResponse()
+            .then(response => {
+                console.log(response)
+                setDatas(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+                
+            })
+    }
+
+    async function eliminar() {
+        console.log(age)
+        let id = parseInt(Cookies.get("id_usuario"))
+        const datos = {
+            id_usuario: id,
+            id_publication: age,
+            password: pwd
+        }
+        console.log(datos)
+        const getResponse = async () => {
             const response = await myFetchData.request("home/delete", "DELETE", datos)
             return response
         }
@@ -81,14 +146,14 @@ export default function EliminarArchivo() {
             .then(response => {
                 console.log(response)
                 let validar = response.id
-                if(validar!==-1){
+                if (validar !== -1) {
                     Swal.fire(
                         `Archivo Eliminado con Exito!`,
                         `Archivo Eliminado ${nombre}!`,
                         `success`
                     )
                     navigateTo("/dashboard")
-                }else{
+                } else {
                     Swal.fire(
                         `Eliminacion de Archivo Inconrrecto!`,
                         `Intenta de nuevo!`,
@@ -96,14 +161,14 @@ export default function EliminarArchivo() {
                         `error`
                     )
                 }
-                
+
             })
             .catch((error) => {
                 console.log(error)
                 Swal.fire(
                     `Eliminacion de Archivo Inconrrecto!`,
-                    `${error}!`,
-                    // ``,
+                    // `${error}!`,
+                    `Intenta de nuevo`,
                     `error`
                 )
             })
@@ -143,19 +208,20 @@ export default function EliminarArchivo() {
                             label="Archivo"
                             onChange={handleChange}
                         >
-                            <MenuItem value={10}>Ten</MenuItem>
-                            <MenuItem value={20}>Twenty</MenuItem>
-                            <MenuItem value={30}>Thirty</MenuItem>
+                            {data.map((row) => (
+                                <MenuItem value={row.id_publication}>{row.nombre}</MenuItem>
+                            ))}
+                            
                         </Select>
                     </FormControl>
                 </Box><br />
-                
+
                 <Typography variant="body1" color="text.primary">
                     Contraseña:
                 </Typography>
                 <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
                     <PasswordIcon color="primary" />
-                    <TextField id="pws" variant="standard" type='password' onChange={event => setPwd(event.target.value)}/>
+                    <TextField id="pws" variant="standard" type='password' onChange={event => setPwd(event.target.value)} />
                 </Box><br />
             </CardContent>
             <CardActions>
