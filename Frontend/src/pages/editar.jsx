@@ -131,7 +131,7 @@ export default function EditarArchivo() {
         getResponse()
             .then(response => {
                 console.log(response)
-                setDatas(response.data)
+                setDatas(response)
             })
             .catch((error) => {
                 console.log(error)
