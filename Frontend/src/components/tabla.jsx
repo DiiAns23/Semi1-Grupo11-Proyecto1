@@ -209,23 +209,23 @@ export default function TablaArchivo() {
   async function obtenerArchivos() {
     console.log("entre aqui")
     const getResponse = async () => {
-        let id = parseInt(Cookies.get("id_usuario"))
-        const datos = {
-            id_usuario: id
-        }
-        console.log(datos)
-        const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
-        return response
-    }
-    getResponse()
-        .then(response => {
-            console.log(response)
-            setDatas(response)
-        })
-        .catch((error) => {
-            console.log(error)
-            
-        })
+      let id = parseInt(Cookies.get("id_usuario"))
+      const datos = {
+          id_usuario: id
+      }
+      console.log(datos)
+      const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
+      return response
+  }
+  getResponse()
+      .then(response => {
+          console.log(response)
+          setDatas(response)
+      })
+      .catch((error) => {
+          console.log(error)
+
+      })
   }
 
   function obtenerPublicos() {
@@ -272,7 +272,7 @@ export default function TablaArchivo() {
   useEffect(() => {
     obtenerArchivos()
     obtenerPublicos()
-    setUsr("wenas")
+    setUsr(Cookies.get("username"))
   }, [])
 
 
