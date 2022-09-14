@@ -132,9 +132,10 @@ export default function EliminarArchivo() {
     async function eliminar() {
         console.log(age)
         let id = parseInt(Cookies.get("id_usuario"))
+        let nombre = datas[age].nombre
         const datos = {
             id_usuario: id,
-            id_publication: age,
+            id_publication: nombre,
             password: pwd
         }
         console.log(datos)
@@ -208,8 +209,8 @@ export default function EliminarArchivo() {
                             label="Archivo"
                             onChange={handleChange}
                         >
-                            {datas.map((row) => (
-                                <MenuItem value={row.id_publication}>{row.nombre}</MenuItem>
+                            {datas.map((row, index) => (
+                                <MenuItem value={index}>{row.nombre}</MenuItem>
                             ))}
                             
                         </Select>
