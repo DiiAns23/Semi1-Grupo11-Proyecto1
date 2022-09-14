@@ -135,7 +135,7 @@ export default function EliminarArchivo() {
         let nombre = datas[age].nombre
         const datos = {
             id_usuario: id,
-            id_publication: nombre,
+            name: nombre,
             password: pwd
         }
         console.log(datos)
