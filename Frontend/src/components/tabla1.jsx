@@ -220,7 +220,7 @@ export default function TablaArchivo1() {
     getResponse()
         .then(response => {
             console.log(response)
-            setDatas(response.data)
+            setDatas(response)
         })
         .catch((error) => {
             console.log(error)
