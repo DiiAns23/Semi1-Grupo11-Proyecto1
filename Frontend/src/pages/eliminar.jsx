@@ -139,7 +139,7 @@ export default function EliminarArchivo() {
         }
         console.log(datos)
         const getResponse = async () => {
-            const response = await myFetchData.request("home/delete", "DELETE", datos)
+            const response = await myFetchData.request("home/delete", "POST", datos)
             return response
         }
         getResponse()

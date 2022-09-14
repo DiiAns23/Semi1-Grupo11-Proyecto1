@@ -140,9 +140,9 @@ export default function EditarArchivo() {
     }
 
     async function buscarEditar() {
-        setNombre(data[age].nombre)
-        setNombreViejo(data[age].nombre)
-        setVisibilidad(data[age].visibilidad)
+        setNombre(datas[age].nombre)
+        setNombreViejo(datas[age].nombre)
+        setVisibilidad(datas[age].visibilidad)
     }
 
     async function editarArchivo() {
@@ -171,7 +171,7 @@ export default function EditarArchivo() {
         console.log(datos)
         console.log("puta vida")
         const getResponse = async () => {
-            const response = await myFetchData.request("home/edit", "UPDATE", datos)
+            const response = await myFetchData.request("home/edit", "POST", datos)
             return response
         }
         getResponse()
