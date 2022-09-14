@@ -208,7 +208,7 @@ export default function EliminarArchivo() {
                             label="Archivo"
                             onChange={handleChange}
                         >
-                            {data.map((row) => (
+                            {datas.map((row) => (
                                 <MenuItem value={row.id_publication}>{row.nombre}</MenuItem>
                             ))}
                             
