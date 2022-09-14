@@ -130,15 +130,15 @@ const data = [
   {
     "id_publication": 4,
     "id_usuario": 7,
-    "nombre": "Archivo 16.txt",
-    "archivo": "2022-8-11-17-19-12-Archivo 16.txt",
+    "nombre": "Archivo 16",
+    "archivo": "2022-8-11-17-19-12-Archivo 16",
     "visibilidad": 1
   },
   {
     "id_publication": 5,
     "id_usuario": 7,
     "nombre": "Archivo 17.pdf",
-    "archivo": "2022-8-11-17-21-19-Archivo 17.pdf",
+    "archivo": "2022-8-11-17-21-19-Archivo 17",
     "visibilidad": 0
   },
   {
@@ -185,7 +185,7 @@ const data = [
   }
 ]
 
-export default function TablaArchivo() {
+export default function TablaArchivo1() {
   const [page, setPage] = React.useState(0);
   const [rowsPerPage, setRowsPerPage] = React.useState(5);
   const [nuevaData, setNuevaData] = React.useState([]);
@@ -228,12 +228,12 @@ export default function TablaArchivo() {
         })
   }
 
-  function obtenerPublicos() {
+  function obtenerPrivados() {
     const arre = []
     for (let i = 0; i < datas.length; i++) {
       let visi = datas[i].visibilidad
       let exte = datas[i].nombre
-      if (visi === 1) {
+      if (visi === 0) {
         console.log("estoy aqui")
         if (datas[i].nombre.includes('.')) {
           let nom = datas[i].nombre.split('.')[1]
@@ -271,7 +271,7 @@ export default function TablaArchivo() {
 
   useEffect(() => {
     obtenerArchivos()
-    obtenerPublicos()
+    obtenerPrivados()
     setUsr("wenas")
   }, [])
 

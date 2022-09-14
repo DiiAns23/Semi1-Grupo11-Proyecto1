@@ -6,6 +6,8 @@ import Grid from '@mui/material/Grid';
 import TablaArchivo from '../components/tabla';
 import MenuUsuario from '../components/menu';
 import Typography from '@mui/material/Typography';
+import Embed from 'react-embed';
+import TablaArchivo1 from '../components/tabla1';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -30,15 +32,15 @@ export default function DashBoard() {
                 <Grid item xs={8}>
                     <br /><br />
                     <Item>
-                        <Typography gutterBottom variant="h5" component="div" align='center'>
+                        <Typography gutterBottom variant="h4" component="div" align='center'>
                             Archivos Publicos
                         </Typography>
                         <TablaArchivo />
                         <br /><br /><br /><br />
-                        <Typography gutterBottom variant="h5" component="div" align='center'>
+                        <Typography gutterBottom variant="h4" component="div" align='center'>
                             Archivos Privados
                         </Typography>
-                        <TablaArchivo />
+                        <TablaArchivo1 />
                     </Item>
                 </Grid>
             </Grid>
