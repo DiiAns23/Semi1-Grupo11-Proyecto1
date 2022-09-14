@@ -273,6 +273,8 @@ export default function TablaArchivo() {
   useEffect(() => {
     obtenerArchivos()
     obtenerPublicos()
+    console.log("enviando")
+    console.log(nuevaData)
     setUsr(Cookies.get("username"))
   }, [])
 
