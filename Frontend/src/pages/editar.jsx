@@ -240,7 +240,7 @@ export default function EditarArchivo() {
                             label="Archivo"
                             onChange={handleChange}
                         >
-                            {data.map((row, index) => (
+                            {datas.map((row, index) => (
                                 <MenuItem value={index}>{row.nombre}</MenuItem>
                             ))}
                         </Select>
