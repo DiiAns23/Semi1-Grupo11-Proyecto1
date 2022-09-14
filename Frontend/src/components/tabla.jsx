@@ -335,7 +335,7 @@ export default function TablaArchivo() {
 
     console.log("buscando publicos")
     
-    const arre = []
+    let arre = []
     for (let i = 0; i < datas.length; i++) {
       let visi = datas[i].visibilidad
       let exte = datas[i].nombre
@@ -372,6 +372,8 @@ export default function TablaArchivo() {
 
       }
     }
+    console.log("nueva data")
+    console.log(arre)
     setNuevaData(arre)
   }, [])
 
