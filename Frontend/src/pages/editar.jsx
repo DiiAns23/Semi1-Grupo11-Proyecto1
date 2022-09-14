@@ -165,7 +165,7 @@ export default function EditarArchivo() {
             id_usuario: id,
             name: nombreViejo,
             new_name: nombreExt,
-            visbility: vis,
+            visibility: vis,
             password: pwd
         }
         console.log(datos)
