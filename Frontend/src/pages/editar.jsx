@@ -31,106 +31,146 @@ export default function EditarArchivo() {
     const [nombre, setNombre] = useState("");
     const [visibilidad, setVisibilidad] = useState("");
     const [pwd, setPwd] = useState("");
+    const [datas, setDatas] = useState([]);
 
     const handleChange = (event) => {
         setAge(event.target.value);
     };
 
+    const data = [
+        {
+            "id_publication": 1,
+            "id_usuario": 7,
+            "nombre": "Archivo Prueba 1.png",
+            "archivo": "2022-8-11-17-15-12-Archivo Prueba 1.png",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 2,
+            "id_usuario": 7,
+            "nombre": "Volantes.png",
+            "archivo": "2022-8-11-17-16-6-Volantes.png",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 3,
+            "id_usuario": 7,
+            "nombre": "Archivo 15",
+            "archivo": "2022-8-11-17-16-41-Archivo 15",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 4,
+            "id_usuario": 7,
+            "nombre": "Archivo 16",
+            "archivo": "2022-8-11-17-19-12-Archivo 16",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 5,
+            "id_usuario": 7,
+            "nombre": "Archivo 17",
+            "archivo": "2022-8-11-17-21-19-Archivo 17",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 6,
+            "id_usuario": 7,
+            "nombre": "Archivo 18",
+            "archivo": "2022-8-11-17-22-18-Archivo 18",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 7,
+            "id_usuario": 7,
+            "nombre": "Archivo 19",
+            "archivo": "2022-8-11-17-22-57-Archivo 19",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 8,
+            "id_usuario": 7,
+            "nombre": "Archivo 20",
+            "archivo": "2022-8-11-17-23-8-Archivo 20",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 9,
+            "id_usuario": 7,
+            "nombre": "Archivo 123",
+            "archivo": "2022-8-11-17-28-28-Archivo 123",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 10,
+            "id_usuario": 7,
+            "nombre": "Archivo 321",
+            "archivo": "2022-8-11-17-40-30-Archivo 321",
+            "visibilidad": 1
+        },
+        {
+            "id_publication": 11,
+            "id_usuario": 7,
+            "nombre": "Archivo 31",
+            "archivo": "2022-8-11-17-41-14-Archivo 31",
+            "visibilidad": 1
+        }
+    ]
+
     async function obtenerArchivos() {
         console.log("entre aqui")
-        // const getResponse = async () => {
-        //     let id = Cookies.get("id_usuario")
-        //     let exte = selectedFile.name.split('.')[1]
-        //     let nombres = nombre + '.' + exte
-        //     const datos = {
-        //         id_usuario: id,
-        //         name: nombres,
-        //         file: base64code,
-        //         visbility: visibilidad,
-        //         password: pwd
-        //     }
-        //     console.log(datos)
-        //     const response = await myFetchData.request("home/upload", "POST", datos)
-        //     return response
-        // }
-        // getResponse()
-        //     .then(response => {
-        //         console.log(response)
-        //         Swal.fire(
-        //             `Archivo Cargado con Exito!`,
-        //             `Archivo Cargado ${nombre}!`,
-        //             `success`
-        //         )
-        //         navigateTo("/dashboard")
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //         Swal.fire(
-        //             `Carga de Archivo Inconrrecto!`,
-        //             `${error}!`,
-        //             // ``,
-        //             `error`
-        //         )
-        //     })
+        const getResponse = async () => {
+            let id = parseInt(Cookies.get("id_usuario"))
+            const datos = {
+                id_usuario: id
+            }
+            console.log(datos)
+            const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
+            return response
+        }
+        getResponse()
+            .then(response => {
+                console.log(response)
+                setDatas(response.data)
+            })
+            .catch((error) => {
+                console.log(error)
+
+            })
     }
 
     async function buscarEditar() {
-        setNombre("wenas")
-        setNombreViejo("wenas")
-        setVisibilidad("0")
-        console.log(age)
-        // const getResponse = async () => {
-        //     let id = Cookies.get("id_usuario")
-        //     let exte = selectedFile.name.split('.')[1]
-        //     let nombres = nombre + '.' + exte
-        //     const datos = {
-        //         id_usuario: id,
-        //         name: nombres,
-        //         file: base64code,
-        //         visbility: visibilidad,
-        //         password: pwd
-        //     }
-        //     console.log(datos)
-        //     const response = await myFetchData.request("home/upload", "POST", datos)
-        //     return response
-        // }
-        // getResponse()
-        //     .then(response => {
-        //         console.log(response)
-        //         Swal.fire(
-        //             `Archivo Cargado con Exito!`,
-        //             `Archivo Cargado ${nombre}!`,
-        //             `success`
-        //         )
-        //         navigateTo("/dashboard")
-        //     })
-        //     .catch((error) => {
-        //         console.log(error)
-        //         Swal.fire(
-        //             `Carga de Archivo Inconrrecto!`,
-        //             `${error}!`,
-        //             // ``,
-        //             `error`
-        //         )
-        //     })
+        setNombre(data[age].nombre)
+        setNombreViejo(data[age].nombre)
+        setVisibilidad(data[age].visibilidad)
     }
 
     async function editarArchivo() {
+        let nombreExt = ""
         console.log(nombre)
         console.log(nombreViejo)
         console.log(visibilidad)
         console.log(pwd)
+        if (!nombre.includes('.')) {
+            console.log("entre")
+            const ext = nombreViejo.split('.')[1]
+            nombreExt = nombre + '.' + ext
+            console.log(nombreExt)
+        } else {
+            nombreExt = nombre
+        }
         let id = parseInt(Cookies.get("id_usuario"))
-            let vis = parent(visibilidad)
-            const datos = {
-                id_usuario: id,
-                name: nombreViejo,
-                new_name: nombre,
-                visbility: vis,
-                password: pwd
-            }
-            console.log(datos)
-        const getResponse = async () => {            
+        let vis = parseInt(visibilidad)
+        const datos = {
+            id_usuario: id,
+            name: nombreViejo,
+            new_name: nombreExt,
+            visbility: vis,
+            password: pwd
+        }
+        console.log(datos)
+        console.log("puta vida")
+        const getResponse = async () => {
             const response = await myFetchData.request("home/edit", "UPDATE", datos)
             return response
         }
@@ -138,14 +178,14 @@ export default function EditarArchivo() {
             .then(response => {
                 console.log(response)
                 let validar = response.id
-                if(validar!==-1){
+                if (validar !== -1) {
                     Swal.fire(
                         `Archivo Editado con Exito!`,
                         `Archivo Editado ${nombre}!`,
                         `success`
                     )
                     navigateTo("/dashboard")
-                }else{
+                } else {
                     Swal.fire(
                         `Edicion de Archivo Inconrrecto!`,
                         `Intenta de nuevo!`,
@@ -153,7 +193,7 @@ export default function EditarArchivo() {
                         `error`
                     )
                 }
-                
+
             })
             .catch((error) => {
                 console.log(error)
@@ -200,9 +240,9 @@ export default function EditarArchivo() {
                             label="Archivo"
                             onChange={handleChange}
                         >
-                            <MenuItem value={10}>Archivo1</MenuItem>
-                            <MenuItem value={20}>Archivo2</MenuItem>
-                            <MenuItem value={30}>Archivo3</MenuItem>
+                            {data.map((row, index) => (
+                                <MenuItem value={index}>{row.nombre}</MenuItem>
+                            ))}
                         </Select>
                     </FormControl>
                 </Box><br />
