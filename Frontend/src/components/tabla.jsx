@@ -234,7 +234,7 @@ export default function TablaArchivo() {
       let visi = datas[i].visibilidad
       let exte = datas[i].nombre
       if (visi === 1) {
-        console.log("estoy aqui")
+        console.log("estoy aqui visibilidad publica")
         if (datas[i].nombre.includes('.')) {
           let nom = datas[i].nombre.split('.')[1]
           if (nom === "txt") {
@@ -312,11 +312,67 @@ export default function TablaArchivo() {
   }
 
   useEffect(() => {
-    obtenerArchivos()
-    // obtenerPublicos()
-    console.log("enviando")
-    console.log(nuevaData)
-    setUsr(Cookies.get("username"))
+    console.log("entre aqui")
+    console.log("empezando useeffect")
+    const getResponse = async () => {
+      let id = parseInt(Cookies.get("id_usuario"))
+      const datos = {
+        id_usuario: id
+      }
+      console.log(datos)
+      const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
+      return response
+    }
+    getResponse()
+      .then(response => {
+        console.log(response)
+        setDatas(response)
+      })
+      .catch((error) => {
+        console.log(error)
+
+      })
+
+    console.log("buscando publicos")
+    
+    const arre = []
+    for (let i = 0; i < datas.length; i++) {
+      let visi = datas[i].visibilidad
+      let exte = datas[i].nombre
+      if (visi === 1) {
+        console.log("estoy aqui visibilidad publica")
+        if (datas[i].nombre.includes('.')) {
+          let nom = datas[i].nombre.split('.')[1]
+          if (nom === "txt") {
+            let agre = {
+              nombre: datas[i].nombre,
+              imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663111932/semi1/proyecto1/3022200_pozqwj.png"
+            }
+            arre.push(agre)
+          } else if (nom === "pdf") {
+            let agre = {
+              nombre: datas[i].nombre,
+              imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663115839/semi1/proyecto1/pdf-1_edz0qb.png"
+            }
+            arre.push(agre)
+          } else {
+            let agre = {
+              nombre: datas[i].nombre,
+              imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663112042/semi1/proyecto1/8276523_eqlzwm.png"
+            }
+            arre.push(agre)
+          }
+        } else {
+          let agre = {
+            nombre: datas[i].nombre,
+            imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663116447/semi1/proyecto1/3143149_jz3bqx.png"
+          }
+          arre.push(agre)
+        }
+
+      }
+    }
+    setNuevaData(arre)
   }, [])
 
 
