@@ -212,24 +212,26 @@ export default function TablaArchivo1() {
     const getResponse = async () => {
       let id = parseInt(Cookies.get("id_usuario"))
       const datos = {
-          id_usuario: id
+        id_usuario: id
       }
       console.log(datos)
       const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
       return response
-  }
-  getResponse()
+    }
+    getResponse()
       .then(response => {
-          console.log(response)
-          setDatas(response)
+        console.log(response)
+        setDatas(response)
       })
       .catch((error) => {
-          console.log(error)
+        console.log(error)
 
       })
+
+    obtenerPrivados()
   }
 
-  function obtenerPrivados() {
+  async function obtenerPrivados() {
     const arre = []
     for (let i = 0; i < datas.length; i++) {
       let visi = datas[i].visibilidad
@@ -257,7 +259,7 @@ export default function TablaArchivo1() {
             }
             arre.push(agre)
           }
-        }else{
+        } else {
           let agre = {
             nombre: datas[i].nombre,
             imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663116447/semi1/proyecto1/3143149_jz3bqx.png"
