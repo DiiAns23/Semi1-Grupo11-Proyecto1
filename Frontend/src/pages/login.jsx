@@ -37,7 +37,7 @@ export default function LoginUsuario() {
                 console.log(response.id)
                 let validar = response.id
                 if(validar!==-1){
-                    Cookies.set("id_usuario",1);
+                    Cookies.set("id_usuario",response.id);
                     Cookies.set("username",data.name);
                     // setAuth({ data })
                     Swal.fire(
