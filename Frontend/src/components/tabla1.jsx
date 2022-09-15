@@ -207,29 +207,68 @@ export default function TablaArchivo1() {
     setPage(0);
   };
 
-  async function obtenerArchivos() {
-    console.log("entre aqui")
+  async function obtenerArchivos1() {
     const getResponse = async () => {
       let id = parseInt(Cookies.get("id_usuario"))
       const datos = {
         id_usuario: id
       }
-      console.log(datos)
+      // console.log(datos)
       const response = await myFetchData.request("home/getPublicationsUser", "POST", datos)
       return response
     }
     getResponse()
       .then(response => {
+        console.log("estoy recibiendo data")
         console.log(response)
         setDatas(response)
+        let arre1 = []
+        for (let i = 0; i < response.length; i++) {
+          let visi = response[i].visibilidad
+          let exte = response[i].nombre
+          if (visi === 0) {
+            console.log("estoy aqui")
+            if (response[i].nombre.includes('.')) {
+              let nom = response[i].nombre.split('.')[1]
+              if (nom === "txt") {
+                let agre = {
+                  nombre: response[i].nombre,
+                  imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663111932/semi1/proyecto1/3022200_pozqwj.png"
+                }
+                arre1.push(agre)
+              } else if (nom === "pdf") {
+                let agre = {
+                  nombre: response[i].nombre,
+                  imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663115839/semi1/proyecto1/pdf-1_edz0qb.png"
+                }
+                arre1.push(agre)
+              } else {
+                let agre = {
+                  nombre: response[i].nombre,
+                  imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663112042/semi1/proyecto1/8276523_eqlzwm.png"
+                }
+                arre1.push(agre)
+              }
+            } else {
+              let agre = {
+                nombre: response[i].nombre,
+                imagen: "https://res.cloudinary.com/ingenieria/image/upload/v1663116447/semi1/proyecto1/3143149_jz3bqx.png"
+              }
+              arre1.push(agre)
+              console.log(arre1)
+            }
+
+          }
+        }
+        console.log("nueva data1")
+        setNuevaData(arre1)
       })
       .catch((error) => {
         console.log(error)
 
       })
-
-    obtenerPrivados()
   }
+
 
   async function obtenerPrivados() {
     const arre = []
@@ -273,10 +312,7 @@ export default function TablaArchivo1() {
   }
 
   useEffect(() => {
-    obtenerArchivos()
-    obtenerPrivados()
-    console.log("enviando")
-    console.log(nuevaData)
+    obtenerArchivos1()
     setUsr(Cookies.get("username"))
   }, [])
 
@@ -288,8 +324,8 @@ export default function TablaArchivo1() {
           {(rowsPerPage > 0
             ? nuevaData.slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
             : nuevaData
-          ).map((row) => (
-            <TableRow key={row.id_publication}>
+          ).map((row,index) => (
+            <TableRow key={index}>
               <TableCell align="center">
                 <CardMedia
                   component="img"
