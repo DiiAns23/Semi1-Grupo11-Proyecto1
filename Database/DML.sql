@@ -60,8 +60,7 @@ DELIMITER $$
 					FROM FRIEND 
                     WHERE 
                     (id_usuario_f = _id_usuario AND id_friend_f = _id_friend) OR
-                    (id_usuario_f = _id_friend AND id_friend_f = _id_usuario)
-                    
+                    (id_usuario_f = _id_friend AND id_friend_f = _id_usuario)  
                     );
         IF dato = 0 THEN
             INSERT INTO FRIEND(id_usuario_f, id_friend_f, acepted) VALUES(_id_usuario, _id_friend, 0);
@@ -72,6 +71,18 @@ DELIMITER $$
         SELECT dato;
     END; $$
 DELIMITER ;
+
+-- get request friend
+DROP PROCEDURE IF EXISTS getRequestF;
+DELIMITER $$
+    CREATE PROCEDURE getRequestF(
+        IN id_usuario INT
+    )
+    BEGIN
+		SELECT * FROM FRIEND WHERE id_friend_f = id_usuario AND acepted = 0;
+    END; $$
+DELIMITER ;;
+
 
 
 -- Aceptar un amigo
@@ -84,8 +95,7 @@ DELIMITER $$
     BEGIN
         UPDATE FRIEND SET acepted = 1 
 			WHERE 
-				(id_usuario_f = id_usuario AND id_friend_f = id_friend) OR 
-                (id_usuario_f = id_friend AND id_friend_f = id_usuario);            
+				(id_friend_f = id_usuario AND id_usuario_f = id_friend);            
     END; $$
 DELIMITER ;;
 
@@ -128,13 +138,14 @@ DELIMITER $$
         IN _password VARCHAR(255)
     )
     BEGIN
-		DECLARE pass INT;
-        SET pass = (SELECT COUNT(*) FROM USUARIO WHERE id_usuario = _id_usuario AND password = _password);
-        IF pass = 1 THEN
+		DECLARE id INT;
+        SET id = (SELECT COUNT(*) FROM USUARIO WHERE id_usuario = _id_usuario AND password = _password);
+        IF id = 1 THEN
 			DELETE FROM PUBLICATION WHERE id_usuario = _id_usuario AND nombre = _archivo;
-            SELECT 0;
+            SELECT id;
 		ELSE
-			SELECT -1;
+			SET id = 0;
+			SELECT id;
         END IF;
     END; $$
 DELIMITER ;;
@@ -151,13 +162,14 @@ DELIMITER $$
         IN _password VARCHAR(255)
     )
     BEGIN
-		DECLARE pass INT;
-        SET pass = (SELECT COUNT(*) FROM USUARIO WHERE id_usuario = _id_usuario AND password = _password);
-        IF pass = 1 THEN
+		DECLARE id INT;
+        SET id = (SELECT COUNT(*) FROM USUARIO WHERE id_usuario = _id_usuario AND password = _password);
+        IF id = 1 THEN
 			UPDATE PUBLICATION SET nombre = _new_nombre, visibilidad = _visibilidad WHERE id_usuario = _id_usuario AND nombre = _nombre;
-            SELECT 0;
+            SELECT id;
 		ELSE
-			SELECT -1;
+			SET id = -1;
+			SELECT id;
         END IF;
     END; $$
 DELIMITER ;;
@@ -174,6 +186,7 @@ DELIMITER $$
     END; $$
 DELIMITER ;;
 
+
 USE Proyecto1;
 
 SELECT * FROM USUARIO;
@@ -182,6 +195,8 @@ SELECT * FROM FRIEND;
 
 SELECT * FROM PUBLICATION;
 
-CALL getDataUser(7);
+CALL getDataUser(1);
 
 SELECT id_publication, nombre FROM PUBLICATION WHERE id_usuario = 7;    
+
+

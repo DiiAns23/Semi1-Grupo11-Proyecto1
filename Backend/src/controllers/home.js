@@ -43,7 +43,7 @@ const deleteFile = async (req, res) => {
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        res.status(200).json(outcome[0]);
     }
     return;
 }
@@ -62,7 +62,7 @@ const editFile = async (req, res) => {
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        res.status(200).json(outcome[0]);
     }
     return;
 }
