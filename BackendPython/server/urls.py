@@ -35,8 +35,8 @@ app.add_url_rule('/home/getPublications', 'home_getpublications', view_func=Home
 # STUDENTS
 app.add_url_rule('/student/', 'student_index', view_func=StudentIndex.as_view('student_index'))
 app.add_url_rule('/student/login', 'student_login', view_func=StudentIndex.as_view('student_login'))
-app.add_url_rule("/student/register",'student_register', view_func=StudentCRUD.as_view("student_register"))
-app.add_url_rule('/student/addFriend', 'student_addfriend', view_func=StudentIndex.as_view('student_addfriend'))
-app.add_url_rule('/student/aceptFriend', 'student_acceptfriend', view_func=StudentIndex.as_view('student_acceptfriend'))
+app.add_url_rule("/student/register",'student_register', view_func=StudentRegister.as_view("student_register"))
+app.add_url_rule('/student/addFriend', 'student_addfriend', view_func=StudentAddFriend.as_view('student_addfriend'))
+app.add_url_rule('/student/aceptFriend', 'student_acceptfriend', view_func=StudentAcceptFriend.as_view('student_acceptfriend'))
 
 
