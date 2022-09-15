@@ -17,13 +17,9 @@ import KeyboardArrowLeft from '@mui/icons-material/KeyboardArrowLeft';
 import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
 import LastPageIcon from '@mui/icons-material/LastPage';
 import CardMedia from '@mui/material/CardMedia';
-import Card from '@mui/material/Card';
-import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 import Cookies from "js-cookie";
 import myFetchData from "../services/FetchData";
-import VisibilityIcon from '@mui/icons-material/Visibility';
-import Embed from 'react-embed';
 
 function TablePaginationActions(props) {
   const theme = useTheme();
@@ -315,7 +311,6 @@ export default function TablaArchivo() {
     console.log("empezando useeffect")
     setUsr(Cookies.get("username"))
     obtenerArchivos()
-    obtenerPublicos()
     obtenerPublicos()
     console.log("nueva data")
     if (arre.length !== 0) {
