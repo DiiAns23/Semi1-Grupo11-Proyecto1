@@ -2,9 +2,8 @@
 # Construccion del Docker-compose
 version: '3'
 services: 
-  microservice:
-    build: .
-    image: prueba
+  test:
+    image: edpo1998/backendpython
     environment:
     - HOST=0.0.0.0
     - PORT=4002
