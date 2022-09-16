@@ -2,11 +2,14 @@
 version: '3'
 services: 
   microservice:
-    build: .
-    image: prueba
+    image: edpo1998/backendpython
     environment:
     - HOST=0.0.0.0
     - PORT=4002
+    - MYSQL_HOST=108.59.84.236
+    - MYSQL_USER=root
+    - MYSQL_PASSWORD=p@ssw0rd 
+    - MYSQL_DB=Proyecto1 
     ports:
     - "4002:4002"
 # docker-compose build

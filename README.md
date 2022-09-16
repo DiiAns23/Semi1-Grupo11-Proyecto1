@@ -7,3 +7,18 @@
 ## Escuela de Ciencias y Sistemas
 ## Seminario de Investigación 1
 ## Grupo 11
+
+
+## INTEGRANTES
+|NOMBRE|CARNET|
+|---|---|
+|Claudia Iovana Miranda Alvarez|201700387|
+|Erick Daniel Poron Munoz|201712132|
+|Diego Andrés Obín Rosales|201903865|
+
+
+---
+## DOCUMENTACIÓN
+[Manual Tecnico](./Documentacion/tecnico.md)
+
+[Manual de Usuario](./Documentacion/usuario.md)

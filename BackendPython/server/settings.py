@@ -30,10 +30,10 @@ class Testing(Config):
 class Production(Config):
     print("Iniciar Configuracion de produccion...")
     DEBUG = False
-    MYSQL_HOST = '108.59.84.236'
-    MYSQL_USER = 'root'
-    MYSQL_PASSWORD = 'p@ssw0rd'
-    MYSQL_DB = 'Proyecto1'
+    MYSQL_HOST =  os.environ.get("MYSQL_HOST") if os.environ.get("MYSQL_HOST")  else 'localhost'
+    MYSQL_USER = os.environ.get("MYSQL_USER") if os.environ.get("MYSQL_USER")  else 'root'
+    MYSQL_PASSWORD = os.environ.get("MYSQL_PASSWORD") if os.environ.get("MYSQL_PASSWORD")  else 'p@ssw0rd' 
+    MYSQL_DB = os.environ.get("MYSQL_DB") if os.environ.get("MYSQL_DB")  else 'Proyecto1' 
     PORT = os.environ.get("PORT") if os.environ.get("PORT")  else '8000'
     HOST = os.environ.get("HOST") if os.environ.get("HOST")  else 'localhost'
     SERVER_NAME="{}:{}".format(HOST,PORT)
