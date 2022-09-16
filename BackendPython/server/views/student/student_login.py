@@ -25,8 +25,12 @@ class StudentLogin(MethodView):
         try:
             cursor = mysql.connection.cursor()
             cursor.callproc('loginUser',(name,password_sha1))
+            row_headers=[x[0] for x in cursor.description]
             data = cursor.fetchall()
-            return response.Succesfully(data[0])
+            json_data=[]
+            for result in data:
+                    json_data.append(dict(zip(row_headers,result)))
+            return response.Succesfully(json_data[0])
         except mysql.connector.Error as err:
             return response.Bad_Request(err)
 

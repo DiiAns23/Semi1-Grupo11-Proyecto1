@@ -16,7 +16,11 @@ class StudentAcceptFriend(MethodView):
         try:
             cursor = mysql.connection.cursor()
             cursor.execute('''call aceptFriend({},{});'''.format(id_usuario_f,id_friend_f))
-            data = cursor.fetchall()            
-            return response.Succesfully(data)   
+            row_headers=[x[0] for x in cursor.description]
+            data = cursor.fetchall()
+            json_data=[]
+            for result in data:
+                    json_data.append(dict(zip(row_headers,result)))
+            return response.Succesfully(json_data)
         except mysql.connector.Error as err:
             return response.Bad_Request(err)
