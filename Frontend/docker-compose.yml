@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  frontend:
+    image: "diians2302/frontend-react-proyecto1semi1"
+    container_name: frontendReact
+    environment:
+        VITE_BACKEND_ADDR: "http://semi1-g11-2s-576644847.us-east-1.elb.amazonaws.com/"
+    ports:
+      - "5173:5173"
+    restart: always
+    networks:
+      - proyecto1
