@@ -6,8 +6,8 @@ services:
     image: prueba
     environment:
     - HOST=0.0.0.0
-    - PORT=4000
+    - PORT=4002
     ports:
-    - "4000:4000"
+    - "4002:4002"
 # docker-compose build
 # docker-compose up -d
