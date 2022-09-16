@@ -6,11 +6,11 @@ services:
     container_name: backendNodeJS
     environment:
         PORT: 4200
-        DB_HOST: '108.59.84.236'
+        DB_HOST: 'database-1.csyggpgjqlmw.us-east-1.rds.amazonaws.com'
         DB_PORT: '3306'
         DB_USER: 'root'
         DB_NAME: 'Proyecto1'
-        DB_PASSWORD: 'p@ssw0rd'
+        DB_PASSWORD: 'passw0rd'
         AWS_ACCESS_KEY_ID: "AKIA5ORMXYID6CJR6664"
         AWS_SECRET_ACCESS_KEY: "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"
     ports:
