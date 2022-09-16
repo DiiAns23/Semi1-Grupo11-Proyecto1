@@ -14,6 +14,10 @@ export default function MenuUsuario(){
     let navigateTo = useNavigate()
     const nombre_usuario =Cookies.get("username");
 
+    function verNotificaciones() {
+        navigateTo("/")
+    }
+
     function verAmigos() {
         navigateTo("/")
     }
@@ -43,7 +47,7 @@ export default function MenuUsuario(){
     }
 
     return(
-        <Card sx={{ maxWidth: 350, maxHeight: 750}}>
+        <Card sx={{ minWidth: 350, minHeight: 550}}>
             <CardMedia
                 component="img"
                 alt="super storage"
@@ -55,6 +59,12 @@ export default function MenuUsuario(){
                     {nombre_usuario}
                 </Typography>
                 <Box sx={{ marginX: 12, marginY: 0 }}>
+                    <Button variant="outlined" size="medium" align='center'>
+                        Ver Notificaciones
+                    </Button>
+                </Box><br/>
+
+                <Box sx={{ marginX: 9, marginY: 0 }}>
                     <Button variant="outlined" size="medium" align='center'>
                         Ver Amigos
                     </Button>

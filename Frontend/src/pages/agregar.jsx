@@ -10,6 +10,7 @@ import Typography from '@mui/material/Typography';
 import CartaUsuario from '../components/usuario';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
+import TablaArchivo2 from '../components/tabla2';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -18,6 +19,9 @@ const Item = styled(Paper)(({ theme }) => ({
     textAlign: 'center',
     color: theme.palette.text.secondary,
 }));
+
+//
+//setUsr(Cookies.get("username"))
 
 export default function AgregarAmigo() {
     return (
@@ -45,7 +49,7 @@ export default function AgregarAmigo() {
                         <Typography gutterBottom variant="h5" component="div" align='center'>
                             Usuarios
                         </Typography>
-                        <TablaArchivo />
+                        <TablaArchivo2 />
                     </Item>
                 </Grid>
             </Grid>
