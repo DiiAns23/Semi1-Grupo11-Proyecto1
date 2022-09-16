@@ -55,20 +55,20 @@ DELIMITER $$
         IN _id_friend INT
     )
     BEGIN
-        DECLARE dato INT;
-        SET dato = (SELECT COUNT(*) 
+        DECLARE id INT;
+        SET id = (SELECT COUNT(*) 
 					FROM FRIEND 
                     WHERE 
                     (id_usuario_f = _id_usuario AND id_friend_f = _id_friend) OR
                     (id_usuario_f = _id_friend AND id_friend_f = _id_usuario)  
                     );
-        IF dato = 0 THEN
+        IF id = 0 THEN
             INSERT INTO FRIEND(id_usuario_f, id_friend_f, acepted) VALUES(_id_usuario, _id_friend, 0);
-            SET dato = LAST_INSERT_ID();
+            SET id = LAST_INSERT_ID();
         ELSE
-            SET dato = -1;
+            SET id = -1;
         END IF;
-        SELECT dato;
+        SELECT id;
     END; $$
 DELIMITER ;
 
@@ -83,8 +83,6 @@ DELIMITER $$
     END; $$
 DELIMITER ;;
 
-
-
 -- Aceptar un amigo
 DROP PROCEDURE IF EXISTS aceptFriend;
 DELIMITER $$
@@ -93,12 +91,32 @@ DELIMITER $$
         IN id_friend INT
     )
     BEGIN
-        UPDATE FRIEND SET acepted = 1 
-			WHERE 
-				(id_friend_f = id_usuario AND id_usuario_f = id_friend);            
+        DECLARE id INT;
+        SET id = (SELECT COUNT(*) FROM FRIEND WHERE id_friend_f = id_usuario AND id_usuario_f = id_friend AND acepted = 0);
+        IF id != 0 THEN
+			UPDATE FRIEND SET acepted = 1 
+				WHERE 
+					(id_friend_f = id_usuario AND id_usuario_f = id_friend);  
+			
+			SELECT id;
+		ELSE
+			SET id = -1;
+			SELECT id;
+		END IF;
     END; $$
 DELIMITER ;;
 
+-- Recolectar amigos
+DROP PROCEDURE IF EXISTS getFriends;
+DELIMITER $$
+	CREATE PROCEDURE getFriends(
+		IN id_usuario INT
+	)
+    BEGIN
+		DECLARE id INT;
+        SELECT * FROM FRIEND WHERE ( id_usuario_f = id_usuario OR id_friend_f = id_usuario) AND acepted = 1;
+	END; $$
+DELIMITER ;;
 
 -- Hacer una publicacion
 DROP PROCEDURE IF EXISTS newPublication;
@@ -186,6 +204,27 @@ DELIMITER $$
     END; $$
 DELIMITER ;;
 
+DROP PROCEDURE IF EXISTS getNames;
+DELIMITER $$
+	CREATE PROCEDURE getNames(
+		IN _id_usuario INT
+	)
+    BEGIN
+		SELECT email, username FROM USUARIO WHERE id_usuario =  _id_usuario ;
+	END; $$
+DELIMITER ;;
+
+DROP PROCEDURE IF EXISTS getUsers;
+DELIMITER $$
+	CREATE PROCEDURE getUsers(
+		IN _id_usuario INT
+	)
+    BEGIN
+		SELECT id_usuario,email, username FROM USUARIO WHERE id_usuario !=  _id_usuario ;
+	END; $$
+DELIMITER ;;
+
+
 
 USE Proyecto1;
 
@@ -197,6 +236,15 @@ SELECT * FROM PUBLICATION;
 
 CALL getDataUser(1);
 
-SELECT id_publication, nombre FROM PUBLICATION WHERE id_usuario = 7;    
+CALL addFriend(3,1);
+CALL addFriend(5,1);
+CALL addFriend(6,1);
 
+CALL getRequestF(3);
+
+CALL aceptFriend(1,3);
+
+CALL getFriends(1);
+
+CALL getUsers(1);
 
