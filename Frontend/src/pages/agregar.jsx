@@ -48,16 +48,10 @@ export default function AgregarAmigo() {
                 <Grid item xs={8}>
                     <br /><br />
 
-                    <Box sx={{ display: 'flex', alignItems: 'flex-end' }}>
-                        <InsertEmoticonIcon color="primary" />
-                        <TextField id="user" variant="standard" label="Buscar" />
-                    </Box><br/>
-                    <Button variant="outlined" startIcon={<SearchIcon />}>
-                        Buscar
-                    </Button><br /><br />
+                    <br /><br />
                     <Item>
                         <Typography gutterBottom variant="h5" component="div" align='center'>
-                            Usuarios
+                            Usuarios de LOCAL STORAGE
                         </Typography>
                         <TablaArchivo2 />
                     </Item>
