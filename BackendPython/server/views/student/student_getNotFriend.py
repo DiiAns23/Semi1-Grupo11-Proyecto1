@@ -53,16 +53,22 @@ class StudentGetNotFriends(MethodView):
             
             id_friends = []
             for user in json_data:
-                if id_usuario != user.id_usuario_f:
-                    id_friends.append(user.id_usuario_f)
+                if id_usuario != user['id_usuario_f']:
+                    id_friends.append(user['id_usuario_f'])
                 else:
-                    id_friends.append(user.id_friend_f)
-            data_response = {}
+                    id_friends.append(user['id_friend_f'])
+            data_response = []
 
             for friend in id_friends:
                 cursor2 = mysql.connection.cursor()
                 cursor2.execute('''call getNames({});'''.format(friend))
-                data_response[friend] = cursor2.fetchall()[0]
+                row_headers=['username','email']
+                data = cursor2.fetchall()
+                json_data=[]
+                for result in data:
+                    json_data.append(dict(zip(row_headers,result)))
+                json_data[0]['id_usuario'] = friend
+                data_response.append(json_data[0])
 
             return response.Succesfully(data_response)
         except mysql.connector.Error as err:
