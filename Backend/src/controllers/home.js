@@ -82,6 +82,17 @@ const getPublicationsUser = async (req, res) => {
     return;
 }
 
+const getPublications = async (req, res) => {
+    // Aqui se obtienen las publicaciones de todos los usuarios
+    const outcome = await execute_sp('call getData();', []);
+    if (outcome.err){
+        res.status(400).json(outcome.err);
+    }else{
+        res.status(200).json(outcome[0]);
+    }
+    return;
+}
+
 
 
 module.exports = {

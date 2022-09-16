@@ -73,6 +73,7 @@ const getRequestFriend = async (req, res) => {
         id_usuario
     ]);
     let id_friends = [];
+    let friends = [];
 
     for (let i = 0; i < outcome[0].length; i++) {
         if (id_usuario != outcome[0][i].id_usuario_f) {
@@ -86,9 +87,10 @@ const getRequestFriend = async (req, res) => {
         const outcome2 = await execute_sp('call getNames(?);', [
             id_friends[i]
         ]);
-        data[id_friends[i]] = outcome2[0][0];
+        outcome2[0][0]['id_usuario'] = id_friends[i];
+        friends.push(outcome2[0][0]);
     }
-    res.status(200).json(data);
+    res.status(200).json(friends);
 
 }
 
@@ -99,22 +101,24 @@ const getFriends = async (req, res) => {
     ]);
 
     let id_friends = [];
+    let friends = [];
 
     for (let i = 0; i < outcome[0].length; i++) {
         if (id_usuario != outcome[0][i].id_usuario_f) {
             id_friends.push(outcome[0][i].id_usuario_f);
         } else {
             id_friends.push(outcome[0][i].id_friend_f);
-    }
+        }
     }
     let data = {};
     for (let i = 0; i < id_friends.length; i++) {
         const outcome2 = await execute_sp('call getNames(?);', [
             id_friends[i]
         ]);
-        data[id_friends[i]] = outcome2[0][0];
+        outcome2[0][0]['id_usuario'] = id_friends[i];
+        friends.push(outcome2[0][0]);
     }
-    res.status(200).json(data);
+    res.status(200).json(friends);
 }
 
 const getNoFriends = async (req, res) => {
