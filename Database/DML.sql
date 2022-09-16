@@ -240,9 +240,9 @@ CALL addFriend(3,1);
 CALL addFriend(5,1);
 CALL addFriend(6,1);
 
-CALL getRequestF(3);
+CALL getRequestF(1);
 
-CALL aceptFriend(1,3);
+CALL aceptFriend(1,5);
 
 CALL getFriends(1);
 
