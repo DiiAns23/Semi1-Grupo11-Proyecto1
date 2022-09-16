@@ -53,32 +53,35 @@ class StudentGetFriends(MethodView):
         response = Response()
         try:
             cursor = mysql.connection.cursor()
-            cursor.execute('''call getRequestF({});'''.format(id_usuario))
+            cursor.execute('''call getFriends({});'''.format(id_usuario))
             row_headers=[x[0] for x in cursor.description]
             data = cursor.fetchall()
+           
             json_data=[]
             for result in data:
                     json_data.append(dict(zip(row_headers,result)))
             
             id_friends = []
+            friends = []
+
             for user in json_data:
                 if id_usuario != user['id_usuario_f']:
                     id_friends.append(user['id_usuario_f'])
                 else:
                     id_friends.append(user['id_friend_f'])
-            data_response = []
+            data_response = {}
 
             for friend in id_friends:
                 cursor2 = mysql.connection.cursor()
                 cursor2.execute('''call getNames({});'''.format(friend))
-                row_headers=['username','email']
+                row_headers=[x[0] for x in cursor2.description]
                 data = cursor2.fetchall()
                 json_data=[]
                 for result in data:
-                    json_data.append(dict(zip(row_headers,result)))
-                json_data[0]['id_usuario'] = friend
-                data_response.append(json_data[0])
+                        json_data.append(dict(zip(row_headers,result)))
+                data_response[friend] = json_data[0]
+                friends.append(data_response[friend])
 
-            return response.Succesfully(data_response)
+            return response.Succesfully(friends)
         except mysql.connector.Error as err:
             return response.Bad_Request(err)
