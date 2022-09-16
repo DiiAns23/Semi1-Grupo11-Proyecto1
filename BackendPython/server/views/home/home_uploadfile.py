@@ -17,16 +17,25 @@ class HomeUploadFile(MethodView):
 
     def post(self):
         request_data = request.get_json()
+        # Data
         id_usuario = request_data.get('id_usuario',None)
         name = request_data.get('name',None)
         file = request_data.get('file',None)
         visibility = request_data.get('visibility',None)
         password_str = request_data.get('password',None)
         password_sha1 = hashlib.sha1(password_str).digest()
-        cursor = mysql.connection.cursor()
-        cursor.execute('''call newPublication({},{},{},{},{});'''.format(id_usuario,name,file,visibility,password_sha1))
-        data = cursor.fetchall()
+        # Send Data
         response = Response()
-        return response.Succesfully(data)
+        try:
+            cursor = mysql.connection.cursor()
+            cursor.execute('''call newPublication({},{},{},{},{});'''.format(id_usuario,name,file,visibility,password_sha1))
+            row_headers=[x[0] for x in cursor.description]
+            data = cursor.fetchall()
+            json_data=[]
+            for result in data:
+                    json_data.append(dict(zip(row_headers,result)))
+            return response.Succesfully(json_data)
+        except mysql.connector.Error as err:
+            return response.Bad_Request(err)
 
         

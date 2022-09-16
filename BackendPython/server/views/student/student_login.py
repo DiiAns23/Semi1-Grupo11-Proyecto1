@@ -16,13 +16,19 @@ class StudentLogin(MethodView):
 
     def post(self):
         request_data = request.get_json()
+        # Data
         name = request_data.get('name',None)
         password_str = request_data.get('password',None)
         password_sha1 = hashlib.sha1(str.encode(password_str)).hexdigest()
-        cursor = mysql.connection.cursor()
-        cursor.callproc('loginUser',(name,password_sha1))
-        data = cursor.fetchall()
+        # Send Data
         response = Response()
-        return response.Succesfully(data)
+        try:
+            cursor = mysql.connection.cursor()
+            cursor.callproc('loginUser',(name,password_sha1))
+            data = cursor.fetchall()
+            return response.Succesfully(data[0])
+        except mysql.connector.Error as err:
+            return response.Bad_Request(err)
+
 
         
