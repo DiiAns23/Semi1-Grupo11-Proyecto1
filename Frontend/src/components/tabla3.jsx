@@ -90,7 +90,7 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function TablaArchivo2() {
+export default function TablaArchivo3() {
     let navigateTo = useNavigate()
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -109,83 +109,31 @@ export default function TablaArchivo2() {
         setPage(0);
     };
 
-    async function obtenerNoAmigos() {
+    async function obtenerAmigos() {
         const getResponse = async () => {
             let id = parseInt(Cookies.get("id_usuario"))
             const datos = {
                 id_usuario: id
             }
             // console.log(datos)
-            const response = await myFetchData.request("student/getNoFriends", "POST", datos)
+            const response = await myFetchData.request("student/getFriends", "POST", datos)
             return response
         }
         getResponse()
             .then(response => {
                 console.log("estoy recibiendo data")
                 console.log(response)
-                setDatas(response)
+                setDatas([response])
             })
             .catch((error) => {
                 console.log(error)
 
             })
     }
-
-    const buscarArmigo = (n)=>{
-        agregarAmigo(n)
-    }
-
-    async function agregarAmigo(index,n){
-        // let idf=datas[index].id_usuario
-        // let nombresito=datas[index].username
-        console.log(index)
-        let nombresito=""
-        for(let i=0; i<datas.length; i++){
-            let actual = datas[i].id_usuario
-            if(actual===index){
-                nombresito=datas[i].username
-                break
-            }
-        }
-        console.log(nombresito)
-        const getResponse = async () => {
-            let id = parseInt(Cookies.get("id_usuario"))
-            const datos = {
-                id_usuario_f: id,
-                id_friend_f:index
-            }
-            // console.log(datos)
-            const response = await myFetchData.request("student/addFriend", "POST", datos)
-            return response
-        }
-        getResponse()
-            .then(response => {
-                let validar = response.id
-                if (validar !== -1) {
-                    Swal.fire(
-                        `Tu Solicitud con Exito!`,
-                        `Tu solicitud a ${nombresito}!`,
-                        `success`
-                    )
-                    navigateTo("/dashboard")
-                } else {
-                    Swal.fire(
-                        `Edicion de Archivo Inconrrecto!`,
-                        `Intenta de nuevo!`,
-                        // ``,
-                        `error`
-                    )
-                }
-            })
-            .catch((error) => {
-                console.log(error)
-
-            })
-    }
-
+ 
 
     useEffect(() => {
-        obtenerNoAmigos()
+        obtenerAmigos()
     }, [])
 
 
@@ -218,13 +166,6 @@ export default function TablaArchivo2() {
                                 <Typography component="div" variant="h5">
                                     {row.username}
                                 </Typography>
-                            </TableCell>
-
-                            <TableCell>
-
-                                <Button variant="outlined" size="medium" align='center' onClick={() => buscarArmigo(row.id_usuario)}>
-                                    Agregar Amigos
-                                </Button>
                             </TableCell>
                         </TableRow>
                     ))}

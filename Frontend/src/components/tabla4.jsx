@@ -90,7 +90,7 @@ TablePaginationActions.propTypes = {
     rowsPerPage: PropTypes.number.isRequired,
 };
 
-export default function TablaArchivo2() {
+export default function TablaArchivo4() {
     let navigateTo = useNavigate()
     const [page, setPage] = React.useState(0);
     const [rowsPerPage, setRowsPerPage] = React.useState(5);
@@ -109,14 +109,14 @@ export default function TablaArchivo2() {
         setPage(0);
     };
 
-    async function obtenerNoAmigos() {
+    async function obtenerNotificaciones() {
         const getResponse = async () => {
             let id = parseInt(Cookies.get("id_usuario"))
             const datos = {
                 id_usuario: id
             }
             // console.log(datos)
-            const response = await myFetchData.request("student/getNoFriends", "POST", datos)
+            const response = await myFetchData.request("student/getRequestFriend", "POST", datos)
             return response
         }
         getResponse()
@@ -185,7 +185,7 @@ export default function TablaArchivo2() {
 
 
     useEffect(() => {
-        obtenerNoAmigos()
+        obtenerNotificaciones()
     }, [])
 
 
@@ -223,7 +223,7 @@ export default function TablaArchivo2() {
                             <TableCell>
 
                                 <Button variant="outlined" size="medium" align='center' onClick={() => buscarArmigo(row.id_usuario)}>
-                                    Agregar Amigos
+                                    Aceptar Solicitud
                                 </Button>
                             </TableCell>
                         </TableRow>

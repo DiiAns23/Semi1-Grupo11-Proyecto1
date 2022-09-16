@@ -23,7 +23,7 @@ export default function MenuUsuario(){
     }
 
     function agregarAmigos() {
-        navigateTo("/")
+        navigateTo("/agregar")
     }
 
     function verArchivos() {
@@ -71,7 +71,7 @@ export default function MenuUsuario(){
                 </Box>
 
                 <Box sx={{ marginX: 9, marginY: 1 }}>
-                    <Button variant="outlined" size="medium" align='center'>
+                    <Button variant="outlined" size="medium" align='center' onClick={agregarAmigos}>
                         Agregar Amigos
                     </Button>
                 </Box>
