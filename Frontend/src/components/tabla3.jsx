@@ -123,7 +123,7 @@ export default function TablaArchivo3() {
             .then(response => {
                 console.log("estoy recibiendo data")
                 console.log(response)
-                setDatas([response])
+                setDatas(response)
             })
             .catch((error) => {
                 console.log(error)
