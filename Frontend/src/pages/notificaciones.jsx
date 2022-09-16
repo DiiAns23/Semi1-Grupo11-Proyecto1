@@ -12,6 +12,7 @@ import CartaUsuario from '../components/usuario';
 import SearchIcon from '@mui/icons-material/Search';
 import Button from '@mui/material/Button';
 import TablaArchivo2 from '../components/tabla2';
+import TablaArchivo4 from '../components/tabla4';
 
 const Item = styled(Paper)(({ theme }) => ({
     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
@@ -26,7 +27,7 @@ const Item = styled(Paper)(({ theme }) => ({
 
 
 
-export default function AgregarAmigo() {
+export default function Notificaciones() {
     let navigateTo = useNavigate()
     
     function cancelar() {
@@ -51,9 +52,9 @@ export default function AgregarAmigo() {
                     <br /><br />
                     <Item>
                         <Typography gutterBottom variant="h5" component="div" align='center'>
-                            Usuarios de LOCAL STORAGE
+                            Mis Notificaciones
                         </Typography>
-                        <TablaArchivo2 />
+                        <TablaArchivo4/>
                     </Item>
                 </Grid>
             </Grid>

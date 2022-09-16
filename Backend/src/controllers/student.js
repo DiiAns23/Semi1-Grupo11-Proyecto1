@@ -56,9 +56,10 @@ const addFriend = async (req, res) => {
 const aceptFriend = async (req, res) => {
     const {id_usuario, id_friend} = req.body;
     const outcome = await execute_sp('call aceptFriend(?,?);', [
-        id_usuario, 
-        id_friend
+        id_friend, 
+        id_usuario
     ]);
+    console.log(req.body)
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
