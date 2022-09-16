@@ -1,0 +1,62 @@
+import * as React from 'react';
+import { styled } from '@mui/material/styles';
+import { useNavigate } from "react-router-dom"
+import Box from '@mui/material/Box';
+import Paper from '@mui/material/Paper';
+import Grid from '@mui/material/Grid';
+import TablaArchivo from '../components/tabla';
+import TextField from '@mui/material/TextField';
+import InsertEmoticonIcon from '@mui/icons-material/InsertEmoticon';
+import Typography from '@mui/material/Typography';
+import CartaUsuario from '../components/usuario';
+import SearchIcon from '@mui/icons-material/Search';
+import Button from '@mui/material/Button';
+import TablaArchivo2 from '../components/tabla2';
+
+const Item = styled(Paper)(({ theme }) => ({
+    backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
+    ...theme.typography.body2,
+    padding: theme.spacing(0),
+    textAlign: 'center',
+    color: theme.palette.text.secondary,
+}));
+
+//
+//setUsr(Cookies.get("username"))
+
+
+
+export default function AgregarAmigo() {
+    let navigateTo = useNavigate()
+    
+    function cancelar() {
+        navigateTo("/dashboard")
+    }
+
+    return (
+        <Box sx={{ flexGrow: 1 }}>
+            <Grid container spacing={2}>
+                <Grid item xs={3}>
+                    <br /><br />
+                    <Item>
+                        <center>
+                            <CartaUsuario />
+                            <Button size="medium" onClick={cancelar}>Cancelar</Button>
+                        </center>
+                    </Item>
+                </Grid>
+                <Grid item xs={8}>
+                    <br /><br />
+
+                    <br /><br />
+                    <Item>
+                        <Typography gutterBottom variant="h5" component="div" align='center'>
+                            Usuarios de LOCAL STORAGE
+                        </Typography>
+                        <TablaArchivo2 />
+                    </Item>
+                </Grid>
+            </Grid>
+        </Box>
+    );
+}
