@@ -2,14 +2,6 @@ const { Router } = require('express');
 const { check } = require('express-validator');
 require('dotenv').config();
 const validateAtributes = require('../middlewares/validateAtributes');
-const AWS = require('aws-sdk');
-const fs = require('fs');
-const s3 = new AWS.S3(
-    {
-        accessKeyId: process.env.AWS_ACCESS_KEY_ID,
-        secretAccessKey: process.env.AWS_SECRET_ACCESS_KEY,
-    }
-);
 
 const router = Router();
 const student = require('../controllers/student');
@@ -46,44 +38,25 @@ router.post('/addFriend', [
     validateAtributes
     ], student.addFriend);
 
-
 router.post('/aceptFriend', [
     check('id_usuario', 'El id es obligatorio').isInt(),
     check('id_friend', 'El id del amigo es obligatorio').isInt(),
     validateAtributes
     ], student.aceptFriend);  
     
-// s3.listBuckets(function(err, data) {
-//     if (err) {
-//         console.log("Error", err);
-//     } else {
-//         console.log("Success", data.Buckets);
-//     }
-// });
+router.post('/getRequestFriend', [
+    check('id_usuario', 'El id es obligatorio').isInt(),
+    validateAtributes
+    ], student.getRequestFriend);
 
+router.post('/getFriends', [
+    check('id_usuario', 'El id es obligatorio').isInt(),
+    validateAtributes
+    ], student.getFriends);
 
-// const parametrosGetObject = {
-//     Bucket: 'semi-proyecto1-g11-s22022',
-//     Key: '2022-8-11-11-42-59.png'
-// }
-// s3.getObject(parametrosGetObject, (err, data) => {
-//     if (err) {
-//         console.log(err);
-//     } else {
-//         console.log(data);
-//         fs.writeFile("src/images/prueba.png", data.Body, 'binary', (err) => {
-//             if (err) {
-//                 console.log(err);
-//             } else {
-//                 console.log("Archivo creado");
-//             }
-//         })
-//     }
-// });
-
-
-
-
-
+router.post('/getNoFriends', [
+    check('id_usuario', 'El id es obligatorio').isInt(),
+    validateAtributes
+    ], student.getNoFriends);
 
 module.exports = router;
