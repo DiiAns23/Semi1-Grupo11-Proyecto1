@@ -14,22 +14,22 @@ export default function MenuUsuario(){
     let navigateTo = useNavigate()
     const nombre_usuario =Cookies.get("username");
 
+    function verNotificaciones() {
+        navigateTo("/notificaciones")
+    }
+
     function verAmigos() {
-        navigateTo("/")
+        navigateTo("/amigos")
     }
 
     function agregarAmigos() {
-        navigateTo("/")
+        navigateTo("/agregar")
     }
 
     function verArchivos() {
         navigateTo("/")
     }
-
-    function verAmigos() {
-        navigateTo("/")
-    }
-
+    
     function subirArchivo() {
         navigateTo("/subir")
     }
@@ -43,7 +43,7 @@ export default function MenuUsuario(){
     }
 
     return(
-        <Card sx={{ maxWidth: 350, maxHeight: 750}}>
+        <Card sx={{ minWidth: 250, minHeight: 450}}>
             <CardMedia
                 component="img"
                 alt="super storage"
@@ -55,13 +55,19 @@ export default function MenuUsuario(){
                     {nombre_usuario}
                 </Typography>
                 <Box sx={{ marginX: 12, marginY: 0 }}>
-                    <Button variant="outlined" size="medium" align='center'>
+                    <Button variant="outlined" size="medium" align='center' onClick={verNotificaciones}>
+                        Ver Notificaciones
+                    </Button>
+                </Box><br/>
+
+                <Box sx={{ marginX: 9, marginY: 0 }}>
+                    <Button variant="outlined" size="medium" align='center' onClick={verAmigos}>
                         Ver Amigos
                     </Button>
                 </Box>
 
                 <Box sx={{ marginX: 9, marginY: 1 }}>
-                    <Button variant="outlined" size="medium" align='center'>
+                    <Button variant="outlined" size="medium" align='center' onClick={agregarAmigos}>
                         Agregar Amigos
                     </Button>
                 </Box>
