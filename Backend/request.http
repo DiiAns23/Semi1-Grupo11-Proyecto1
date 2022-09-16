@@ -23,8 +23,8 @@ POST http://localhost:4200/student/addFriend HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_usuario_f": 3,
-    "id_friend_f": 4
+    "id_usuario_f": 1,
+    "id_friend_f": 3
 }
 
 ### ACCEPT REQUEST FRIEND
@@ -32,7 +32,7 @@ POST http://localhost:4200/student/aceptFriend HTTP/1.1
 Content-Type: application/json
 
 {
-    "id_usuario": 4,
+    "id_usuario": 1,
     "id_friend": 3
 }
 
@@ -76,4 +76,30 @@ Content-Type: application/json
 
 {
     "id_usuario": 7
+}
+
+### GET FRIENDS
+POST http://localhost:4200/student/getFriends HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_usuario": 1
+}
+
+
+### GET REQUEST FRIENDS
+POST http://localhost:4200/student/getRequestFriend HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_usuario": 1
+}
+
+
+### GET NO FRIENDS
+POST http://localhost:4200/student/getNoFriends HTTP/1.1
+Content-Type: application/json
+
+{
+    "id_usuario": 1
 }

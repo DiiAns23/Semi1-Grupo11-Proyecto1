@@ -47,7 +47,7 @@ const addFriend = async (req, res) => {
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        res.status(200).json(outcome[0]);
     }
     return;
 }
@@ -62,15 +62,86 @@ const aceptFriend = async (req, res) => {
     if (outcome.err){
         res.status(400).json(outcome.err);
     }else{
-        res.status(200).json(outcome.result);
+        res.status(200).json(outcome[0]);
     }
     return;
 }
 
+const getRequestFriend = async (req, res) => {
+    const {id_usuario} = req.body;
+    const outcome = await execute_sp('call getRequestF(?);', [
+        id_usuario
+    ]);
+    let id_friends = [];
+
+    for (let i = 0; i < outcome[0].length; i++) {
+        if (id_usuario != outcome[0][i].id_usuario_f) {
+            id_friends.push(outcome[0][i].id_usuario_f);
+        } else {
+            id_friends.push(outcome[0][i].id_friend_f);
+    }
+    }
+    let data = {};
+    for (let i = 0; i < id_friends.length; i++) {
+        const outcome2 = await execute_sp('call getNames(?);', [
+            id_friends[i]
+        ]);
+        data[id_friends[i]] = outcome2[0][0];
+    }
+    res.status(200).json(data);
+
+}
+
+const getFriends = async (req, res) => {
+    const {id_usuario} = req.body;
+    const outcome = await execute_sp('call getFriends(?);', [
+        id_usuario
+    ]);
+
+    let id_friends = [];
+
+    for (let i = 0; i < outcome[0].length; i++) {
+        if (id_usuario != outcome[0][i].id_usuario_f) {
+            id_friends.push(outcome[0][i].id_usuario_f);
+        } else {
+            id_friends.push(outcome[0][i].id_friend_f);
+    }
+    }
+    let data = {};
+    for (let i = 0; i < id_friends.length; i++) {
+        const outcome2 = await execute_sp('call getNames(?);', [
+            id_friends[i]
+        ]);
+        data[id_friends[i]] = outcome2[0][0];
+    }
+    res.status(200).json(data);
+}
+
+const getNoFriends = async (req, res) => {
+    const {id_usuario} = req.body;
+    const outcome = await execute_sp('call getUsers(?);', [
+        id_usuario
+    ]);
+    const outcome2 = await execute_sp('call getFriends(?);', [
+        id_usuario
+    ]);
+    for (let i = 0; i < outcome[0].length; i++) {
+        for (let j = 0; j < outcome2[0].length; j++) {
+            if (outcome[0][i].id_usuario == outcome2[0][j].id_usuario_f || outcome[0][i].id_usuario == outcome2[0][j].id_friend_f) {
+                outcome[0].splice(i, 1);
+            }
+        }
+    }
+    res.status(200).json(outcome[0]);
+
+}
 
 module.exports = {
     login,
     register,
     addFriend,
-    aceptFriend
+    aceptFriend,
+    getRequestFriend,
+    getFriends,
+    getNoFriends
 }
